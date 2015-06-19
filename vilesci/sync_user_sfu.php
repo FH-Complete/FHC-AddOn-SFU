@@ -17,6 +17,7 @@ die('DISABLED');
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  *
  * Authors: Andreas Oesterreicher <andreas.oesterreicher@technikum-wien.at> 
+ *          Nikolaus Krondraf <nikolaus.krondraf@technikum-wien.at>
  *
  */
 /**
@@ -35,6 +36,7 @@ ini_set('display_errors','1');
 error_reporting(E_ALL);
 
 $db = new basis_db();
+$sendActivationMail = true;
 
 //LDAP Verbindung herstellen
 $ldap = new ldap();
@@ -65,24 +67,32 @@ if($result = $db->db_query($qry))
 		//Suchen ob der User bereits vorhanden ist
 		if(!$dn = $ldap->GetUserDN($row->uid))
 		{
-			if($row->matrikelnr=='')
+			$data = array();
+            
+            if($row->matrikelnr=='')
 			{
 				//Mitarbeiter
-				$dn = "CN=$row->uid,cn=users,dc=uni,DC=sfu,DC=ac,dc=at";
+				$dn = "CN=$row->uid,CN=Users,DC=uni,DC=sfu,DC=ac,DC=at";
+                $data['gidNumber'] = 'staff';
+                $data['homeDirectory']='\\\\sfusamba4dc1\\'.$row->uid;
+                $data['homeDrive']='M:';
+                $data['loginShell']='/bin/bash';
+                $data['profilePath']='%LogonServer%\\profiles\\staff';
 			}
 			else
 			{
 				//Studierende
-				$dn = "CN=$row->uid,cn=users,dc=uni,DC=sfu,DC=ac,dc=at";
+				$dn = "CN=$row->uid,CN=Users,DC=uni,DC=sfu,DC=ac,DC=at";
+                $data['gidNumber'] = 'student';
+                $data['unixHomeDirectory']='/var/spool/mail/'.$row->uid;
 
 			}
 			
 			//Active Directory will das Passwort in doppelten Hochkomma und UTF16LE codiert
-			$utf16_passwort = 	mb_convert_encoding('"'.ACCOUNT_ACTIVATION_PASSWORD.'"', "UTF-16LE", "UTF-8");
+			$utf16_passwort = mb_convert_encoding('"'.ACCOUNT_ACTIVATION_PASSWORD.'"', "UTF-16LE", "UTF-8");
 
-			$data = array();
 			$data['cn'] = $row->uid;
-			$data['objectclass'] = array("top","person","organizationalPerson","user","posixAccount");
+			$data['objectClass'] = array("top","person","organizationalPerson","user","posixAccount");
 			$data['sn'] = $row->nachname;
 			$data['givenName'] = $row->vorname;
 			$data['displayName'] = $row->vorname." ".$row->nachname;
@@ -92,7 +102,7 @@ if($result = $db->db_query($qry))
 			$data['userPrincipalName'] = $row->uid.'@'.DOMAIN;
 			//$data['proxyAddresses']=array('smtp:'.$row->uid.'@'.DOMAIN, 'SMTP:'.$row->alias.'@'.DOMAIN);
 			$data['msSFU30Name']=$row->uid;
-			$data['unixHomeDirectory']='/var/spool/mail/'.$row->uid;
+            $data['msSFU30NisDomain'] = 'uni';
 			
 			//Passwort und UserAccountControl kann nicht beim Anlegen direkt gesetzt werden
 			//Es muss nach dem Anlegen des Users gesetzt werden
@@ -100,9 +110,6 @@ if($result = $db->db_query($qry))
 			// UserAccountControl gibt den Status des Accounts an. Per default sind diese deaktiviert (514)
 			// 512 = Normal Account
 			// http://support.microsoft.com/kb/305144/en-us
-			//$data["UserAccountControl"] = "512";  
-			//$data["unicodepwd"] = $utf16_passwort;			
-
 			if(!$ldap->Add($dn, $data))
 			{
 				echo "<br>Fehler beim Anlegen von $row->uid: ".$ldap->errormsg;
@@ -110,7 +117,6 @@ if($result = $db->db_query($qry))
 			}
 			else
 			{
-
 				// Nur fuer Active Directory
 
 				// Moegliche Fehlerquellen beim setzten des Passworts:
@@ -121,38 +127,44 @@ if($result = $db->db_query($qry))
 				// - Passwort muss korrekt UTF16LE kodiert sein und unter doppelten Hochkomma stehen
 
 				$data = array();
-				$data['useraccountcontrol']='66048'; // Normaler Account, Passwort laeuft nicht aus
-				$data['unicodepwd']=$utf16_passwort;
+				$data['userAccountControl']='66048'; // Normaler Account, Passwort laeuft nicht aus
+				$data['unicodePwd']=$utf16_passwort;
 				if(!$ldap->Modify($dn, $data))
 				{
 					echo "<br>Fehler beim Setzten von UserAccountControl und Passwort von $row->uid: ".$ldap->errormsg;
 					continue;
 				}					
 
-				/*
-				echo "<br>$row->uid erfolgreich angelegt";
-				$to = $row->email_privat;
-				$from = 'no-reply@'.DOMAIN;
-				$subject = 'Account Aktivierung';
-				$link = CIS_ROOT."cis/public/accountactivation.php?username=".$row->uid."&code=".$row->aktivierungscode;
+                echo "<br>$row->uid erfolgreich angelegt";
+                
+                if($sendActivationMail)
+                {
+                    // Aktivierungsmail verschicken
+                    $to = $row->email_privat;
+                    $from = 'no-reply@'.DOMAIN;
+                    $subject = 'Account Aktivierung';
+                    $link = CIS_ROOT."cis/public/accountactivation.php?username=".$row->uid."&code=".$row->aktivierungscode;
 
-				if($row->studiengang!='')
-					$stg='Studiengang:'.$row->studiengang;
-				else
-					$stg='Lehrender / Bediensteter';
+                    if($row->studiengang!='')
+                        $stg='Studiengang:'.$row->studiengang;
+                    else
+                        $stg='Lehrender / Bediensteter';
 
-				$text = $p->t('mail/accountaktivierung',array($row->vorname,$row->nachname,$row->uid,$row->aktivierungscode,$stg,$row->uid.'@'.DOMAIN, $link, CIS_ROOT));
+                    $text = $p->t('mail/accountaktivierung',array($row->vorname,$row->nachname,$row->uid,$row->aktivierungscode,$stg,$row->uid.'@'.DOMAIN, $link, CIS_ROOT));
 
-				$mail = new mail($to, $from, $subject,'Wechseln Sie in die HTML Ansicht um den Inhalt anzuzeigen');
-				$mail->setHTMLContent($text);
-				if($mail->send())
-					echo " Aktivierungsmail versandt an $to";
-				else
-					echo " Fehler beim senden des Mails an $to";
-				*/
-				
-				// Verzeichnisse am Mailserver anlegen
-				exec('ssh mail.uni.sfu.ac.at /root/makemaildir.sh '.$row->uid);
+                    $mail = new mail($to, $from, $subject,'Wechseln Sie in die HTML Ansicht um den Inhalt anzuzeigen');
+                    $mail->setHTMLContent($text);
+                    if($mail->send())
+                        echo " Aktivierungsmail versandt an $to";
+                    else
+                        echo " Fehler beim senden des Mails an $to";
+                }
+								
+                if($row->matrikelnr=='')
+                {
+                    // Verzeichnisse am Mailserver anlegen
+                    exec('ssh mail.uni.sfu.ac.at /root/makemaildir.sh '.$row->uid);
+                }
 			}
 		}
 	}
