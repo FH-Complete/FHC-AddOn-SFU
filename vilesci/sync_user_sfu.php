@@ -73,7 +73,7 @@ if($result = $db->db_query($qry))
 			{
 				//Mitarbeiter
 				$dn = "CN=$row->uid,CN=Users,DC=uni,DC=sfu,DC=ac,DC=at";
-                $data['gidNumber'] = 'staff';
+                $data['gidNumber'] = '10002';
                 $data['homeDirectory']='\\\\sfusamba4dc1\\'.$row->uid;
                 $data['homeDrive']='M:';
                 $data['loginShell']='/bin/bash';
@@ -83,7 +83,7 @@ if($result = $db->db_query($qry))
 			{
 				//Studierende
 				$dn = "CN=$row->uid,CN=Users,DC=uni,DC=sfu,DC=ac,DC=at";
-                $data['gidNumber'] = 'student';
+                $data['gidNumber'] = '10001';
                 $data['unixHomeDirectory']='/var/spool/mail/'.$row->uid;
 
 			}
@@ -160,7 +160,7 @@ if($result = $db->db_query($qry))
                         echo " Fehler beim senden des Mails an $to";
                 }
 								
-                if($row->matrikelnr=='')
+                if($row->matrikelnr!='')
                 {
                     // Verzeichnisse am Mailserver anlegen
                     exec('ssh mail.uni.sfu.ac.at /root/makemaildir.sh '.$row->uid);
