@@ -1,5 +1,6 @@
 <?php
-die('DISABLED');
+if(php_sapi_name() != 'cli')
+    die('DISABLED');
 /* Copyright (C) 2014 fhcomplete.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -63,8 +64,7 @@ if($result = $db->db_query($qry))
 {
 	while($row = $db->db_fetch_object($result))
 	{
-
-		//Suchen ob der User bereits vorhanden ist
+        //Suchen ob der User bereits vorhanden ist
 		if(!$dn = $ldap->GetUserDN($row->uid))
 		{
 			$data = array();
@@ -85,7 +85,6 @@ if($result = $db->db_query($qry))
 				$dn = "CN=$row->uid,CN=Users,DC=uni,DC=sfu,DC=ac,DC=at";
                 $data['gidNumber'] = '10001';
                 $data['unixHomeDirectory']='/var/spool/mail/'.$row->uid;
-
 			}
 			
 			//Active Directory will das Passwort in doppelten Hochkomma und UTF16LE codiert
@@ -97,7 +96,7 @@ if($result = $db->db_query($qry))
 			$data['givenName'] = $row->vorname;
 			$data['displayName'] = $row->vorname." ".$row->nachname;
 			$data['name'] = $row->vorname." ".$row->nachname;
-			$data['mail'] = $row->alias.'@'.DOMAIN;
+			$data['mail'] = $row->uid.'@'.DOMAIN;
 			$data["sAMAccountName"] = $row->uid;
 			$data['userPrincipalName'] = $row->uid.'@'.DOMAIN;
 			//$data['proxyAddresses']=array('smtp:'.$row->uid.'@'.DOMAIN, 'SMTP:'.$row->alias.'@'.DOMAIN);
@@ -146,7 +145,7 @@ if($result = $db->db_query($qry))
                     $link = CIS_ROOT."cis/public/accountactivation.php?username=".$row->uid."&code=".$row->aktivierungscode;
 
                     if($row->studiengang!='')
-                        $stg='Studiengang:'.$row->studiengang;
+                        $stg='Studiengang: '.$row->studiengang;
                     else
                         $stg='Lehrender / Bediensteter';
 
