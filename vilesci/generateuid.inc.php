@@ -22,12 +22,12 @@
  */
 /**
  * Generiert die UID für Studierende
- * FORMAT: SFU20140001
+ * FORMAT: sfu20140001
  */
 function generateUID($stgkzl,$jahr, $stgtyp, $matrikelnummer)
 {
 	$db = new basis_db();
-        $uid = 'SFU'.date('Y');
+        $uid = 'sfu'.date('Y');
         $qry="SELECT substring(uid,8) as lastid FROM public.tbl_benutzer WHERE uid like '".$db->db_escape($uid)."%' ORDER BY 1 desc LIMIT 1";
         $lastid=0;
         if($result = $db->db_query($qry))
