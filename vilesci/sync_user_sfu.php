@@ -69,6 +69,16 @@ if($result = $db->db_query($qry))
 		{
 			$data = array();
             
+            // freie UID-Nummer für den User ermitteln
+            $lastUidNumber = file_get_contents("lastUidNumber.txt");
+            $uidNumber = $lastUidNumber + 1;
+            while($ldap->CheckUidNumber($uidNumber) === false)
+            {
+                $uidNumber++;
+            }
+            $data['uidNumber'] = $uidNumber;
+            file_put_contents("lastUidNumber.txt", $uidNumber);
+            
             if($row->matrikelnr=='')
 			{
 				//Mitarbeiter
