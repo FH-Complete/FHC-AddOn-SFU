@@ -58,6 +58,11 @@ $qry = "SELECT
 		WHERE
 			tbl_benutzer.aktiv
 		AND uid NOT IN('administrator','_DummyLektor')
+        AND EXISTS (SELECT 1 FROM public.tbl_student JOIN public.tbl_prestudentstatus USING(prestudent_id) 
+                WHERE tbl_student.student_uid=tbl_benutzer.uid 
+                AND get_rolle_prestudent(prestudent_id,null) IN('Student','Incoming') 
+                AND tbl_prestudentstatus.studiensemester_kurzbz IN 
+                    (SELECT studiensemester_kurzbz FROM public.tbl_studiensemester WHERE start>now()))
 		";
 
 if($result = $db->db_query($qry))
