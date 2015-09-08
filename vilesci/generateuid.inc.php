@@ -47,25 +47,22 @@ function generateUID($stgkzl,$jahr, $stgtyp, $matrikelnummer)
 
 /**
  * Gerneriert die Mitarbeiter UID
- * Format v.nachname max 20 Zeichen
+ * Format vorname.nachname, max 20 Zeichen
  */
 function generateMitarbeiterUID($vorname, $nachname, $lektor)
 {
 	$bn = new benutzer();
 	$uid='';
 	
-	// Nachname wird so lange verkuerzt bis eine eindeutige UID entsteht die noch nicht vergeben ist
-	for($nn=18;$nn!=0;$nn--)
-	{
-		$uid = mb_substr($vorname,0,1);
-		$uid .= '.'.mb_substr($nachname,0,$nn);
-				
-		$uid = mb_str_replace(' ','',$uid);
-		$uid = mb_str_replace('-','',$uid);
-
-		$uid = mb_strtolower($uid);
-		if(!$bn->uid_exists($uid))
-			return $uid;
-	}
+    // Nachname wird so lange verkuerzt bis eine eindeutige UID entsteht die noch nicht vergeben ist
+    for($nn=mb_strlen($nachname);$nn!=0;$nn--)
+    {
+        $uid = mb_substr($vorname.'.'.mb_substr($nachname,0,$nn),0,20);
+        $uid = mb_str_replace(' ','',$uid);
+        $uid = mb_str_replace('-','',$uid);
+        $uid = mb_strtolower($uid);
+        if(!$bn->uid_exists($uid))
+            return $uid;
+    }
 	return false;
 }
