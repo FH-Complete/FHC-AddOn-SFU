@@ -21,7 +21,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	
 					<fo:block-container position="absolute" top="40pt" left="30pt" height="30pt">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="14pt">
-							Studienbestätigung Sigmund Freud Universität Wien
+							Studienbestätigung Sigmund Freud PrivatUniversität Wien
 						</fo:block>
 					</fo:block-container> 
 									
@@ -76,8 +76,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="8pt">
 							geboren am<xsl:text> </xsl:text><xsl:value-of select="geburtsdatum" /><xsl:text> </xsl:text>
 							ist im<xsl:text> </xsl:text><xsl:value-of select="studiensemester_aktuell" /><xsl:text> </xsl:text>(Beginn <xsl:text> </xsl:text><xsl:value-of select="studienbeginn_aktuell" />)
-							als ordentliche(r) Studierende(r) (Studienbeginn,<xsl:text> </xsl:text><xsl:value-of select="studiensemester_beginn" /> Beginn<xsl:text> </xsl:text><xsl:value-of select="studienbeginn_beginn" />)
-							der Studienrichtung <xsl:text> </xsl:text><xsl:value-of select="studiengang_kz" /><xsl:text> </xsl:text><xsl:value-of select="studiengang_art" /><xsl:text> </xsl:text><xsl:value-of select="studiengang_bezeichnung" /> im
+							als ordentliche(r) Studierende(r) (Studienbeginn im<xsl:text> </xsl:text><xsl:value-of select="studiensemester_beginn" /> ab<xsl:text> </xsl:text><xsl:value-of select="studienbeginn_beginn" />)
+							der Studienrichtung <xsl:text> </xsl:text><xsl:value-of select="studiengang_bezeichnung" /> im
 							<xsl:text> </xsl:text><xsl:value-of select="semester" />. Semester gemeldet.
                         </fo:block>
 					</fo:block-container> 
@@ -90,7 +90,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 					<fo:block-container position="absolute" top="150pt" left="360pt" height="30pt">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="8pt">
-							Rektor:<xsl:text> </xsl:text><xsl:value-of select="rektor" />
+							Vizerektor für Lehre: MMag. Dr. Stefan Hampl
                         </fo:block>
 					</fo:block-container> 
 
@@ -103,7 +103,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 					<fo:block-container position="absolute" top="190pt" left="30pt" height="30pt">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="14pt">
-							Studienbestätigung Sigmund Freud Universität
+							Studienbestätigung Sigmund Freud PrivatUniversität Wien
 						</fo:block>
 					</fo:block-container> 
 
@@ -157,8 +157,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="8pt">
 							geboren am<xsl:text> </xsl:text><xsl:value-of select="geburtsdatum" /><xsl:text> </xsl:text>
 							ist im<xsl:text> </xsl:text><xsl:value-of select="studiensemester_aktuell" /><xsl:text> </xsl:text>(Beginn <xsl:text> </xsl:text><xsl:value-of select="studienbeginn_aktuell" />)
-							als ordentliche(r) Studierende(r) (Studienbeginn,<xsl:text> </xsl:text><xsl:value-of select="studiensemester_beginn" /> Beginn<xsl:text> </xsl:text><xsl:value-of select="studienbeginn_beginn" />)
-							der Studienrichtung <xsl:text> </xsl:text><xsl:value-of select="studiengang_kz" /><xsl:text> </xsl:text><xsl:value-of select="studiengang_art" /><xsl:text> </xsl:text><xsl:value-of select="studiengang_bezeichnung" /> im
+							als ordentliche(r) Studierende(r) (Studienbeginn im<xsl:text> </xsl:text><xsl:value-of select="studiensemester_beginn" /> ab<xsl:text> </xsl:text><xsl:value-of select="studienbeginn_beginn" />)
+							der Studienrichtung <xsl:text> </xsl:text><xsl:value-of select="studiengang_bezeichnung" /> im
 							<xsl:text> </xsl:text><xsl:value-of select="semester" />. Semester gemeldet.
                         </fo:block>
 					</fo:block-container> 
@@ -171,7 +171,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 					<fo:block-container position="absolute" top="300pt" left="360pt" height="30pt">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="8pt">
-							Rektor:<xsl:text> </xsl:text><xsl:value-of select="rektor" />
+							Vizerektor für Lehre: MMag. Dr. Stefan Hampl
                         </fo:block>
 					</fo:block-container> 
 
@@ -185,7 +185,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 					<fo:block-container position="absolute" top="340pt" left="30pt" height="30pt">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="14pt">
-					Studienbestätigung Sigmund Freud Universität
+					Studienbestätigung Sigmund Freud PrivatUniversität Wien
 						</fo:block>
 					</fo:block-container> 
 
@@ -240,8 +240,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="8pt">
 							geboren am<xsl:text> </xsl:text><xsl:value-of select="geburtsdatum" /><xsl:text> </xsl:text>
 							ist im<xsl:text> </xsl:text><xsl:value-of select="studiensemester_aktuell" /><xsl:text> </xsl:text>(Beginn <xsl:text> </xsl:text><xsl:value-of select="studienbeginn_aktuell" />)
-							als ordentliche(r) Studierende(r) (Studienbeginn,<xsl:text> </xsl:text><xsl:value-of select="studiensemester_beginn" /> Beginn<xsl:text> </xsl:text><xsl:value-of select="studienbeginn_beginn" />)
-							der Studienrichtung <xsl:text> </xsl:text><xsl:value-of select="studiengang_kz" /><xsl:text> </xsl:text><xsl:value-of select="studiengang_art" /><xsl:text> </xsl:text><xsl:value-of select="studiengang_bezeichnung" /> im
+							als ordentliche(r) Studierende(r) (Studienbeginn im<xsl:text> </xsl:text><xsl:value-of select="studiensemester_beginn" /> ab<xsl:text> </xsl:text><xsl:value-of select="studienbeginn_beginn" />)
+							der Studienrichtung <xsl:text> </xsl:text><xsl:value-of select="studiengang_bezeichnung" /> im
 							<xsl:text> </xsl:text><xsl:value-of select="semester" />. Semester gemeldet.
                         </fo:block>
 					</fo:block-container> 
@@ -254,7 +254,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 					<fo:block-container position="absolute" top="450pt" left="360pt" height="30pt">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="8pt">
-							Rektor:<xsl:text> </xsl:text><xsl:value-of select="rektor" />
+							Vizerektor für Lehre: MMag. Dr. Stefan Hampl
                         </fo:block>
 					</fo:block-container> 
 
@@ -268,7 +268,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 					<fo:block-container position="absolute" top="490pt" left="30pt" height="30pt">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="14pt">
-							Studienbestätigung Sigmund Freud Universität
+							Studienbestätigung Sigmund Freud PrivatUniversität Wien
                         </fo:block>
 					</fo:block-container> 
 
@@ -324,8 +324,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="8pt">
 							geboren am<xsl:text> </xsl:text><xsl:value-of select="geburtsdatum" /><xsl:text> </xsl:text>
 							ist im<xsl:text> </xsl:text><xsl:value-of select="studiensemester_aktuell" /><xsl:text> </xsl:text>(Beginn <xsl:text> </xsl:text><xsl:value-of select="studienbeginn_aktuell" />)
-							als ordentliche(r) Studierende(r) (Studienbeginn,<xsl:text> </xsl:text><xsl:value-of select="studiensemester_beginn" /> Beginn<xsl:text> </xsl:text><xsl:value-of select="studienbeginn_beginn" />)
-							der Studienrichtung <xsl:text> </xsl:text><xsl:value-of select="studiengang_kz" /><xsl:text> </xsl:text><xsl:value-of select="studiengang_art" /><xsl:text> </xsl:text><xsl:value-of select="studiengang_bezeichnung" /> im
+							als ordentliche(r) Studierende(r) (Studienbeginn im<xsl:text> </xsl:text><xsl:value-of select="studiensemester_beginn" /> ab<xsl:text> </xsl:text><xsl:value-of select="studienbeginn_beginn" />)
+							der Studienrichtung <xsl:text> </xsl:text><xsl:value-of select="studiengang_bezeichnung" /> im
 							<xsl:text> </xsl:text><xsl:value-of select="semester" />. Semester gemeldet.
                         </fo:block>
 					</fo:block-container> 
@@ -338,7 +338,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 					<fo:block-container position="absolute" top="600pt" left="360pt" height="30pt">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="8pt">
-							Rektor:<xsl:text> </xsl:text><xsl:value-of select="rektor" />
+							Vizerektor für Lehre: MMag. Dr. Stefan Hampl
 						</fo:block>
 					</fo:block-container> 
 
@@ -352,7 +352,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 					<fo:block-container position="absolute" top="640pt" left="30pt" height="30pt">
 						<fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="14pt">
-							Studienbestätigung Sigmund Freud Universität
+							Studienbestätigung Sigmund Freud PrivatUniversität Wien
                         </fo:block>
 					</fo:block-container> 
 
@@ -408,8 +408,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                             <fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="8pt">
 								geboren am<xsl:text> </xsl:text><xsl:value-of select="geburtsdatum" /><xsl:text> </xsl:text>
 								ist im<xsl:text> </xsl:text><xsl:value-of select="studiensemester_aktuell" /><xsl:text> </xsl:text>(Beginn <xsl:text> </xsl:text><xsl:value-of select="studienbeginn_aktuell" />)
-								als ordentliche(r) Studierende(r) (Studienbeginn,<xsl:text> </xsl:text><xsl:value-of select="studiensemester_beginn" /> Beginn<xsl:text> </xsl:text><xsl:value-of select="studienbeginn_beginn" />)
-								der Studienrichtung <xsl:text> </xsl:text><xsl:value-of select="studiengang_kz" /><xsl:text> </xsl:text><xsl:value-of select="studiengang_art" /><xsl:text> </xsl:text><xsl:value-of select="studiengang_bezeichnung" /> im
+								als ordentliche(r) Studierende(r) (Studienbeginn im<xsl:text> </xsl:text><xsl:value-of select="studiensemester_beginn" /> ab<xsl:text> </xsl:text><xsl:value-of select="studienbeginn_beginn" />)
+								der Studienrichtung <xsl:text> </xsl:text><xsl:value-of select="studiengang_bezeichnung" /> im
 								<xsl:text> </xsl:text><xsl:value-of select="semester" />. Semester gemeldet.
 							</fo:block>
 					</fo:block-container> 
@@ -422,7 +422,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 					<fo:block-container position="absolute" top="750pt" left="360pt" height="30pt">
                             <fo:block text-align="left" line-height="12pt" font-family="sans-serif" font-size="8pt">
-								Rektor:<xsl:text> </xsl:text><xsl:value-of select="rektor" />
+								Vizerektor für Lehre: MMag. Dr. Stefan Hampl
 							</fo:block>
 					</fo:block-container> 
 
