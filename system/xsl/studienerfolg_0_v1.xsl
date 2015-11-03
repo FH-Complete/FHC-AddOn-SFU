@@ -30,7 +30,7 @@
 					
 					<!-- Titel -->
 					<fo:block-container position="absolute" top="20mm" left="15mm">
-						<fo:block font-size="16pt">Sigmund Freud Universität Wien</fo:block>
+						<fo:block font-size="16pt">Sigmund Freud PrivatUniversität Wien</fo:block>
 					</fo:block-container>
 					
 					<fo:block-container position="absolute" top="26mm" left="15mm">
