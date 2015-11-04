@@ -117,6 +117,7 @@ if($result = $db->db_query($qry))
 			//$data['proxyAddresses']=array('smtp:'.$row->uid.'@'.DOMAIN, 'SMTP:'.$row->alias.'@'.DOMAIN);
 			$data['msSFU30Name']=$row->uid;
             $data['msSFU30NisDomain'] = 'uni';
+            $data['uid'] = $row->uid;
 			
 			//Passwort und UserAccountControl kann nicht beim Anlegen direkt gesetzt werden
 			//Es muss nach dem Anlegen des Users gesetzt werden
