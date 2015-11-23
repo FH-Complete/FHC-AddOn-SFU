@@ -101,7 +101,7 @@ $studiensemester->getAll("desc");
                 <input type="hidden" name="student_uid" value="<?php echo $student->uid ?>" id="uid"/>
             </p>
             <p>
-                <label>LV:</label>
+                <label>Lehrveranstaltung:</label>
                 <input type="text" name="lehrveranstaltung_id">
             </p>
             <p>
