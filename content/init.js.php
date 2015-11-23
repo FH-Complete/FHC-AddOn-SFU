@@ -32,6 +32,16 @@ addon.push(
 		// Matrikelnummer im Tree einblenden und Personenkennzeichen ausblenden
 		document.getElementById('student-treecol-matrikelnummer').hidden=true;
 		document.getElementById('student-treecol-matrnr').hidden=false;
+        
+        // Menuepunkt hinzufuegen
+		extrasmenue = document.getElementById("menu-extras-popup");
+
+		var menuentry = document.createElement("menuitem");
+		menuentry.setAttribute("id","addons-sfu-zeugnisnote");
+		menuentry.setAttribute("label","Zeugnisnote eintragen");
+		menuentry.addEventListener("command",AddZeugnisnote, true);
+	
+		extrasmenue.appendChild(menuentry);
 	},
 	selectMitarbeiter: function(person_id, mitarbeiter_uid)
 	{
@@ -49,3 +59,18 @@ addon.push(
 	{
 	}
 });
+
+function AddZeugnisnote()
+{
+	var tree = document.getElementById('student-tree');
+    if (tree.currentIndex == -1)
+    {
+        alert("Bitte wählen Sie einen Studenten aus.");
+        return false;
+    }
+        
+    var col = tree.columns ? tree.columns["student-treecol-uid"] : "student-treecol-uid";
+	var uid = tree.view.getCellText(tree.currentIndex,col);
+    
+    window.open('../addons/sfu/vilesci/zeugnisnote.php?uid='+uid);
+}
