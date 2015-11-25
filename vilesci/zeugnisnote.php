@@ -26,6 +26,9 @@ require_once('../../../include/zeugnisnote.class.php');
 require_once('../../../include/datum.class.php');
 require_once('../../../include/note.class.php');
 require_once('../../../include/studiensemester.class.php');
+require_once('../../../include/studienplan.class.php');
+require_once('../../../include/prestudent.class.php');
+require_once('../../../include/lehrveranstaltung.class.php');
 
 if(!$db = new basis_db())
     die('Es konnte keine Verbindung zum Server aufgebaut werden.');
@@ -61,11 +64,30 @@ if(isset($_POST['new']))
         echo "<p style='color: green;'>Note erfolgreich gespeichert</p>";
 }
 
+// Student und Prestudent laden
 $student = new student($_GET["uid"]);
+$prestudent = new prestudent();
+$prestudent->getFirstStatus($student->prestudent_id, 'Student');
+$prestudent->getLastStatus($student->prestudent_id, 'Student');
+
+// Stammdaten der Noten und Studiensemester laden
 $noten = new note();
 $noten->getAll();
 $studiensemester = new studiensemester;
 $studiensemester->getAll("desc");
+
+// Studienplan und LVs laden
+$studienplan = new studienplan();
+$studienplan->loadStudienplan($prestudent->studienplan_id);
+$lehrveranstaltung = new lehrveranstaltung();
+$lehrveranstaltung->loadLehrveranstaltungStudienplan($prestudent->studienplan_id);
+$lehrveranstaltungen = array();
+foreach($lehrveranstaltung->lehrveranstaltungen as $lv)
+{
+    if($lv->lehrform_kurzbz != "MOD")
+        $lehrveranstaltungen[$lv->lehrveranstaltung_id] = $lv->bezeichnung . " (" . $lv->lehrform_kurzbz . ")";
+}
+asort($lehrveranstaltungen);
 
 ?>
 <!DOCTYPE html>
@@ -101,23 +123,38 @@ $studiensemester->getAll("desc");
                 <input type="hidden" name="student_uid" value="<?php echo $student->uid ?>" id="uid"/>
             </p>
             <p>
+                <label>Studienplan:</label>
+                <?php echo $studienplan->bezeichnung; ?>
+            </p>
+            <p>
                 <label>Lehrveranstaltung:</label>
-                <input type="text" name="lehrveranstaltung_id">
+                <select name="lehrveranstaltung_id">
+                <?php
+                  foreach($lehrveranstaltungen as $key => $value)
+                  {
+                      echo "<option value='" . $key . "'>" . $value . "</option>";
+                  }
+                ?>
+                </select>
             </p>
             <p>
                 <label>Studiensemester:</label>
                 <select name="studiensemester_kurzbz">
-                <?php foreach($studiensemester->studiensemester as $semester): ?>
-                    <option value="<?php echo $semester->studiensemester_kurzbz; ?>"><?php echo $semester->bezeichnung; ?></option>
-                <?php endforeach; ?>
+                <?php foreach($studiensemester->studiensemester as $semester)
+                {
+                    echo "<option value='" . $semester->studiensemester_kurzbz . "'>" . $semester->bezeichnung . "</option>";
+                }
+                ?>
                 </select>
             </p>
             <p>
                 <label>Note:</label>
                 <select name="note">
-                <?php foreach($noten->result as $note): ?>
-                    <option value="<?php echo $note->note; ?>"><?php echo $note->bezeichnung; ?></option>
-                <?php endforeach; ?>
+                <?php foreach($noten->result as $note)
+                {
+                    echo "<option value='" . $note->note . "'>" . $note->bezeichnung . "</option>";
+                }
+                ?>
                 </select>
             </p>
             <p>
