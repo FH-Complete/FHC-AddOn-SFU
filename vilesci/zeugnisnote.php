@@ -37,7 +37,7 @@ $user = get_uid();
 
 $rechte = new benutzerberechtigung();
 $rechte->getBerechtigungen($user);
-if(!$rechte->isBerechtigt('lehre/gruppe:begrenzt', null, 's'))
+if(!$rechte->isBerechtigt('lehre/pruefungsbeurteilungAdmin', null, 'suid'))
     die('Sie haben keine Berechtigung für diese Seite');
 
 if(!isset($_GET["uid"]))
@@ -46,7 +46,7 @@ if(!isset($_GET["uid"]))
 // Note speichern
 if(isset($_POST['new'])) 
 {
-    if (!$rechte->isBerechtigt('lehre/gruppe', null, 'sui'))
+    if (!$rechte->isBerechtigt('lehre/pruefungsbeurteilungAdmin', null, 'suid'))
         die('Sie haben keine Berechtigung für diese Seite');
     $datum = new datum();
     
@@ -75,6 +75,7 @@ $noten = new note();
 $noten->getAll();
 $studiensemester = new studiensemester;
 $studiensemester->getAll("desc");
+$aktStudSem = $studiensemester->getakt();
 
 // Studienplan und LVs laden
 $studienplan = new studienplan();
@@ -108,7 +109,8 @@ asort($lehrveranstaltungen);
             })
         </script>
         <style>
-            label {
+            label 
+            {
                 width: 150px;
                 display: inline-block;
             }
@@ -142,7 +144,8 @@ asort($lehrveranstaltungen);
                 <select name="studiensemester_kurzbz">
                 <?php foreach($studiensemester->studiensemester as $semester)
                 {
-                    echo "<option value='" . $semester->studiensemester_kurzbz . "'>" . $semester->bezeichnung . "</option>";
+                    $semester->studiensemester_kurzbz == $aktStudSem ? $selected = " selected" : $selected = "";
+                    echo "<option value='" . $semester->studiensemester_kurzbz . "'" . $selected . ">" . $semester->bezeichnung . "</option>";
                 }
                 ?>
                 </select>
