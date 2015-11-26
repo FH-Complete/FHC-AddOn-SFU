@@ -37,7 +37,7 @@ $user = get_uid();
 
 $rechte = new benutzerberechtigung();
 $rechte->getBerechtigungen($user);
-if(!$rechte->isBerechtigt('lehre/pruefungsbeurteilungAdmin', null, 'suid'))
+if(!$rechte->isBerechtigt('student/noten', null, 'suid'))
     die('Sie haben keine Berechtigung für diese Seite');
 
 if(!isset($_GET["uid"]))
@@ -46,7 +46,7 @@ if(!isset($_GET["uid"]))
 // Note speichern
 if(isset($_POST['new'])) 
 {
-    if (!$rechte->isBerechtigt('lehre/pruefungsbeurteilungAdmin', null, 'suid'))
+    if (!$rechte->isBerechtigt('student/noten', null, 'suid'))
         die('Sie haben keine Berechtigung für diese Seite');
     $datum = new datum();
     
