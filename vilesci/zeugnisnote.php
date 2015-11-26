@@ -29,6 +29,7 @@ require_once('../../../include/studiensemester.class.php');
 require_once('../../../include/studienplan.class.php');
 require_once('../../../include/prestudent.class.php');
 require_once('../../../include/lehrveranstaltung.class.php');
+require_once('../../../include/mitarbeiter.class.php');
 
 if(!$db = new basis_db())
     die('Es konnte keine Verbindung zum Server aufgebaut werden.');
@@ -58,6 +59,8 @@ if(isset($_POST['new']))
     $zeugnisnote->note = $_POST["note"];
     $zeugnisnote->benotungsdatum = $datum->formatDatum($_POST["benotungsdatum"]);
     $zeugnisnote->insertvon = $user;
+    $zeugnisnote->insertamum = date('Y-m-d H:i:s', time());
+    $zeugnisnote->bemerkung = $_POST["lektor"];
     if (!$zeugnisnote->save())
         echo "<p style='color: red;'>Die Note konnte nicht gespeichert werden: " . $zeugnisnote->errormsg . "<p>";
     else
@@ -89,6 +92,10 @@ foreach($lehrveranstaltung->lehrveranstaltungen as $lv)
         $lehrveranstaltungen[$lv->lehrveranstaltung_id] = $lv->bezeichnung . " (" . $lv->lehrform_kurzbz . ")";
 }
 asort($lehrveranstaltungen);
+
+// Lektoren laden
+$mitarbeiter = new mitarbeiter();
+$lektoren = $mitarbeiter->getMitarbeiter(true, null, $student->studiengang_kz);
 
 ?>
 <!DOCTYPE html>
@@ -163,6 +170,25 @@ asort($lehrveranstaltungen);
             <p>
                 <label>Benotungsdatum:</label>
                 <input type="text" name="benotungsdatum" id="datepicker_datum">
+            </p>
+            <p>
+                <label>Lektor:</label>
+                <select name="lektor">
+                <?php foreach($lektoren as $lektor)
+                {
+                    $lektorBez = "";
+                    if($lektor->titelpre != "")
+                        $lektorBez .= $lektor->titelpre . " ";
+                    
+                    $lektorBez .= $lektor->vorname . " " . $lektor->nachname;
+                    
+                    if($lektor->titelpost != "")
+                        $lektorBez .= ", " . $lektor->titelpost;
+                        
+                    echo "<option value='" . $lektorBez . "'>" . $lektorBez . "</option>";
+                }
+                ?>
+                </select>
             </p>
             <p>
                 <input type="hidden" name="type" value="new">
