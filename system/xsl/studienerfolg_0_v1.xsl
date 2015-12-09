@@ -71,7 +71,7 @@
 										</fo:table-cell>
 										<fo:table-cell border-width="0.2mm" border-style="solid">
 											<fo:block font-family="sans-serif" font-size="8pt" content-width="45mm" text-align="left">
-												<xsl:text> Personenkennzeichen\n</xsl:text>
+												<xsl:text> Matrikelnummer\n</xsl:text>
 											</fo:block>
 										</fo:table-cell>
 								</fo:table-row>
@@ -130,6 +130,7 @@
 					</fo:block-container>
 					
 					<!-- Studiensemester - Ausbildungssemester -->
+                    <!--
 					<fo:block-container position="absolute" top="81.6mm" left="15mm">
 						<fo:table table-layout="fixed" border-collapse="separate">
 						    <fo:table-column column-width="120mm"/>
@@ -162,6 +163,7 @@
 							<xsl:value-of select="semester_aktuell" />
 						</fo:block>
 					</fo:block-container>
+                    -->
 					
 					<!-- TABELLE -->
 					<fo:block-container position="absolute" top="110mm" left="15mm">
@@ -172,10 +174,10 @@
 					
  					<fo:block-container position="absolute" top="120mm" left="15mm">
 						<fo:table table-layout="fixed" border-collapse="separate" border-width="0.2mm" border-style="solid">
-						<fo:table-column column-width="70mm"/>
+						<fo:table-column column-width="115mm"/>
 						<fo:table-column column-width="24mm"/>
-						<fo:table-column column-width="32mm"/>
-						<fo:table-column column-width="13mm"/>
+						<!-- <fo:table-column column-width="32mm"/>
+						<fo:table-column column-width="13mm"/> -->
 						<fo:table-column column-width="10mm"/>
 						<fo:table-column column-width="15mm"/>
 						<fo:table-column column-width="15mm"/>					
@@ -192,7 +194,8 @@
 											 <xsl:text>Studiensemester</xsl:text>
 										</fo:block>
 									</fo:table-cell>
-									<fo:table-cell border-width="0.2mm" border-style="solid">
+									<!--
+                                    <fo:table-cell border-width="0.2mm" border-style="solid">
 										<fo:block font-size="8pt" font-weight="bold" content-width="32mm" text-align="center">
 											 <xsl:text>Ausbildungssemester</xsl:text>
 										</fo:block>
@@ -202,6 +205,7 @@
 											<xsl:text>SWS</xsl:text>
 										</fo:block>
 									</fo:table-cell>
+                                    -->
 									<fo:table-cell border-width="0.2mm" border-style="solid">
 										<fo:block font-size="8pt" font-weight="bold" content-width="10mm" text-align="center">
 											<xsl:text>ECTS</xsl:text>
@@ -231,16 +235,18 @@
 											 <xsl:value-of select="studiensemester_kurzbz" />
 										</fo:block>
 									</fo:table-cell>
+                                    <!--
 									<fo:table-cell border-width="0.2mm" border-style="solid">
 										<fo:block font-size="8pt" font-weight="bold" content-width="32mm" text-align="center">
 											 <xsl:text></xsl:text>
 										</fo:block>
 									</fo:table-cell>
-									<fo:table-cell border-width="0.2mm" border-style="solid">
+                                    <fo:table-cell border-width="0.2mm" border-style="solid">
 										<fo:block font-size="8pt" font-weight="bold" content-width="13mm" text-align="center">
 											<xsl:value-of select="gesamtstunden" />
 										</fo:block>
 									</fo:table-cell>
+                                    -->
 									<fo:table-cell border-width="0.2mm" border-style="solid">
 										<fo:block font-size="8pt" font-weight="bold" content-width="10mm" text-align="center">
 											<xsl:value-of select="gesamtects" />
@@ -307,10 +313,10 @@
 	
 	<xsl:template match="unterrichtsfach">
 		<fo:table-row  line-height="10pt">
-			<fo:table-cell border-width="0.2mm" border-style="solid" ><fo:block font-size="8pt" content-width="70mm"><xsl:text> </xsl:text><xsl:value-of select="bezeichnung" /></fo:block></fo:table-cell>
+			<fo:table-cell border-width="0.2mm" border-style="solid" ><fo:block font-size="8pt" content-width="115mm"><xsl:text> </xsl:text><xsl:value-of select="bezeichnung" /></fo:block></fo:table-cell>
 			<fo:table-cell border-width="0.2mm" border-style="solid" ><fo:block font-size="8pt" content-width="24mm" text-align="center"><xsl:text> </xsl:text><xsl:value-of select="../studiensemester_kurzbz" /></fo:block></fo:table-cell>
-			<fo:table-cell border-width="0.2mm" border-style="solid" ><fo:block font-size="8pt" content-width="32mm" text-align="center"><xsl:text> </xsl:text><xsl:value-of select="../semester" /></fo:block></fo:table-cell>
-			<fo:table-cell border-width="0.2mm" border-style="solid" ><fo:block font-size="8pt" content-width="13mm" text-align="center"><xsl:text> </xsl:text><xsl:value-of select="sws" /></fo:block></fo:table-cell>
+			<!-- <fo:table-cell border-width="0.2mm" border-style="solid" ><fo:block font-size="8pt" content-width="32mm" text-align="center"><xsl:text> </xsl:text><xsl:value-of select="../semester" /></fo:block></fo:table-cell> -->
+			<!-- <fo:table-cell border-width="0.2mm" border-style="solid" ><fo:block font-size="8pt" content-width="13mm" text-align="center"><xsl:text> </xsl:text><xsl:value-of select="sws" /></fo:block></fo:table-cell> -->
 			<fo:table-cell border-width="0.2mm" border-style="solid" ><fo:block font-size="8pt" content-width="10mm" text-align="center"><xsl:text> </xsl:text><xsl:value-of select="ects" /></fo:block></fo:table-cell>
 			<fo:table-cell border-width="0.2mm" border-style="solid" ><fo:block font-size="8pt" content-width="15mm" text-align="center"><xsl:text> </xsl:text><xsl:value-of select="benotungsdatum" /></fo:block></fo:table-cell>
 			<fo:table-cell border-width="0.2mm" border-style="solid" ><fo:block font-size="8pt" content-width="15mm" text-align="center"><xsl:text> </xsl:text><xsl:value-of select="note" /></fo:block></fo:table-cell>

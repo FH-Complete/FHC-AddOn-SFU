@@ -1418,7 +1418,7 @@ xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn
           </table:table-cell>
           <table:table-cell table:style-name="Table2.B5" office:value-type="string">
             <text:p text:style-name="P44">
-              <text:span text:style-name="Tabelleninhalt">Personenkennzeichen</text:span>
+              <text:span text:style-name="Tabelleninhalt">Matrikelnummer</text:span>
             </text:p>
             <text:p text:style-name="P44">
               <text:span text:style-name="Tabelleninhalt">Student identification number</text:span>
@@ -1519,15 +1519,15 @@ xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn
           <table:table-cell table:style-name="Table3.C4" office:value-type="string">
             <text:p text:style-name="P44">
               <text:span text:style-name="Tabelleninhalt">
-                <text:span text:style-name="T2">Fachhochschule Technikum Wien, Verleihung des Status "Fachhochschule" im November 2000</text:span>
+                <text:span text:style-name="T2">Sigmund Freud PrivatUniversität Wien</text:span>
               </text:span>
               <text:span text:style-name="Tabelleninhalt"> </text:span>
             </text:p>
             <text:p text:style-name="P44">
               <text:span text:style-name="Tabelleninhalt">
-                <text:span text:style-name="T3">University of Applied Sciences Technikum Wien, status University of Applied Science </text:span>
+                <text:span text:style-name="T3"></text:span>
               </text:span>
-              <text:span text:style-name="Tabelleninhalt">conferred November 2000</text:span>
+              <text:span text:style-name="Tabelleninhalt"></text:span>
             </text:p>
           </table:table-cell>
         </table:table-row>
@@ -1554,11 +1554,11 @@ xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn
           </table:table-cell>
           <table:table-cell table:style-name="Table3.C5" office:value-type="string">
             <text:p text:style-name="P44">
-              <text:span text:style-name="Tabelleninhalt">Fachhochschule Technikum Wien, Verleihung des Status "Fachhochschule" im November 2000 </text:span>
+              <text:span text:style-name="Tabelleninhalt">Sigmund Freud PrivatUniversität Wien</text:span>
             </text:p>
             <text:p text:style-name="P44">
               <text:span text:style-name="Tabelleninhalt">
-                <text:span text:style-name="T3">University of Applied Sciences Technikum Wien, status University of Applied Science conferred November 2000</text:span>
+                <text:span text:style-name="T3"></text:span>
               </text:span>
               <text:span text:style-name="Tabelleninhalt"> </text:span>
             </text:p>
@@ -2208,13 +2208,10 @@ xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn
           </table:table-cell>
           <table:table-cell table:style-name="Table7.C3" office:value-type="string">
             <text:p text:style-name="P44">
-              <text:span text:style-name="Tabelleninhalt">www.technikum-wien.at</text:span>
+              <text:span text:style-name="Tabelleninhalt">www.sfu.ac.at</text:span>
             </text:p>
             <text:p text:style-name="P44">
-              <text:span text:style-name="Tabelleninhalt">www.aq.ac.at</text:span>
-            </text:p>
-            <text:p text:style-name="P44">
-              <text:span text:style-name="Tabelleninhalt">www.bmwf.gv.at/home/academic_mobility/enic_naric_austria/</text:span>
+              <text:span text:style-name="Tabelleninhalt">www.sfu.ac.at/english</text:span>
             </text:p>
           </table:table-cell>
         </table:table-row>

@@ -48,7 +48,7 @@
 
 					<fo:block-container position="absolute" top="104mm" left="140mm">
 						<fo:block content-width="70mm" line-height="10pt" font-family="sans-serif" font-size="8pt">
-							<xsl:text>Personenkennzeichen: </xsl:text><xsl:value-of select="matrikelnr" />
+							<xsl:text>Matrikelnummer: </xsl:text><xsl:value-of select="matrikelnr" />
 						</fo:block>
 					</fo:block-container>	
 					
@@ -99,9 +99,9 @@
 					<fo:block-container position="absolute" top="162mm" left="24mm">
 							<fo:table table-layout="fixed" border-collapse="collapse" border-width="0.2pt" border-style="solid">
 								<fo:table-column column-width="0mm"/>
-								<fo:table-column column-width="80mm"/>
+								<fo:table-column column-width="96mm"/>
 								<fo:table-column column-width="38mm"/>
-								<fo:table-column column-width="16mm"/>
+								<!-- <fo:table-column column-width="16mm"/> -->
 								<fo:table-column column-width="24mm"/>
 								<fo:table-body>
 									<fo:table-row line-height="19pt">
@@ -123,14 +123,16 @@
 												Note
 												</fo:block>
 										</fo:table-cell>
+                                        <!--
 										<fo:table-cell border-width="0.2mm" border-style="solid" display-align="center" background-color="#afb8bc">
 											<fo:block font-size="9pt" font-weight="bold" content-width="16mm" text-align="center"  vertical-align="center" font-family="arial">
 												SWS
 												</fo:block>
 										</fo:table-cell>
+                                        -->
 										<fo:table-cell border-width="0.2mm" border-style="solid" display-align="center" background-color="#afb8bc">
 											<fo:block font-size="9pt" font-weight="bold" content-width="24mm" text-align="center"  vertical-align="center" font-family="arial">
-												<xsl:text>ECTS credits</xsl:text>
+												<xsl:text>ECTS</xsl:text>
 											</fo:block>
 										</fo:table-cell>
 									</fo:table-row>
@@ -160,12 +162,14 @@
 											</xsl:choose>
 										</fo:block>
 									</fo:table-cell>
+                                    <!--
 									<fo:table-cell border-width="0.2mm" border-style="solid" display-align="center">
 										<fo:block font-size="9pt" content-width="16mm" text-align="center" vertical-align="center" font-family="arial">
 											<xsl:text> </xsl:text>
 											<xsl:value-of select="sws"/>
 										</fo:block>
 									</fo:table-cell>
+                                    -->
 									<fo:table-cell border-width="0.2mm" border-style="solid" display-align="center">
 										<fo:block font-size="9pt" content-width="24mm" text-align="center" vertical-align="center" font-family="arial">
 											<xsl:text> </xsl:text>
