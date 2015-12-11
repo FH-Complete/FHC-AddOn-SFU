@@ -86,13 +86,13 @@
 							<xsl:text> als </xsl:text>
 							<xsl:choose>
 								<xsl:when test="geschlecht='m'">
-									<xsl:text>ordentlicher Student </xsl:text>
+									<xsl:text>ordentlicher Studierender </xsl:text>
 								</xsl:when>
 								<xsl:when test="geschlecht='w'">
-									<xsl:text>ordentliche Studentin </xsl:text>
+									<xsl:text>ordentliche Studierende </xsl:text>
 								</xsl:when>
 							</xsl:choose>
-							<xsl:text> folgende Lehrveranstaltung an der Sigmund Freu PrivatUniversität Wien absolviert:</xsl:text>
+							<xsl:text> folgende Lehrveranstaltung an der Sigmund Freud PrivatUniversität Wien absolviert:</xsl:text>
 						</fo:block>
 					</fo:block-container>
 					
