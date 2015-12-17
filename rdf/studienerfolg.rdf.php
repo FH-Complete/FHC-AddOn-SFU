@@ -185,11 +185,18 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 				if($db->db_query($qry))
 					if($row_wochen = $db->db_fetch_object())
 						$wochen = $row_wochen->wochen;
+                    
+                // Semester der LV laut Studienplan ermitteln
+                $qry = "SELECT SUBSTRING(kurzbz FROM 1 FOR 2) AS studplansem FROM lehre.tbl_lehrveranstaltung WHERE lehrveranstaltung_id=".$db->db_add_param($row->lehrveranstaltung_id);
+                if($db->db_query($qry))
+					if($row_studplansem = $db->db_fetch_object())
+						$studplansem = $row_studplansem->studplansem;
 
 				$xml .= "			<unterrichtsfach>";
 				$xml .= "				<bezeichnung><![CDATA[".$row->lehrveranstaltung_bezeichnung."]]></bezeichnung>";
 				$xml .= "				<bezeichnung_englisch><![CDATA[".$row->lehrveranstaltung_bezeichnung_english."]]></bezeichnung_englisch>";
-				$xml .= "				<note>".$note."</note>";
+				$xml .= "				<studplansem><![CDATA[".$studplansem."]]></studplansem>";
+                $xml .= "				<note>".$note."</note>";
 				$xml .= "				<note_idx>".$row->note."</note_idx>";
 				$sws = sprintf('%.1F',$row->semesterstunden/$wochen);
 				$xml .= "				<sws>".$sws."</sws>";
