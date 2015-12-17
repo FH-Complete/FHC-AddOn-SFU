@@ -111,7 +111,7 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 	if($orgform=='')
 		$orgform = $row->orgform_kurzbz;
 	
-	$studiengang = new studiengang();
+	$studiengang = new studiengang($row->studiengang_kz);
 	$stgleiter = $studiengang->getLeitung($row->studiengang_kz);
 	$stgl='';
 	foreach ($stgleiter as $stgleiter_uid)
@@ -121,6 +121,27 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 	}
 	
 	$stdsem = new studiensemester($studiensemester_kurzbz);
+    
+    switch($studiengang->typ)
+    {
+        case 'b':
+            $studTyp = 'Bakkalaureat'; 
+            break; 
+        case 'm': 
+            $studTyp = 'Magister'; 
+            break; 
+        case 'd':
+            $studTyp = 'Diplom'; 
+            break;
+        case 'l':
+            $studTyp = 'Lehrgang'; 
+            break;
+        case 'k':
+            $studTyp = 'Kurzstudium'; 
+            break;
+        default: 
+            $studTyp ='';
+    }
 	
 	$xml .= "	<studienerfolg>";
 	$xml .= "		<logopath>".DOC_ROOT."skin/images/</logopath>";
@@ -131,6 +152,7 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 	$xml .=	"		<semester_aktuell>".$semester_aktuell.($semester_aktuell!=''?'. Semester':'')."</semester_aktuell>";
 	$xml .=	"		<semester_aktuell_semester>".$semester_aktuell."</semester_aktuell_semester>";
 	$xml .= "		<studiengang>".$row->bezeichnung."</studiengang>";
+    $xml .= "		<studiengang_typ>".$studTyp."</studiengang_typ>";
 	$xml .= "		<studiengang_englisch>".$row->bezeichnung_englisch."</studiengang_englisch>";
 	$xml .= "		<studiengang_kz>".sprintf('%04s',$row->studiengang_kz)."</studiengang_kz>";
 	$xml .= "		<titelpre>".$row->titelpre."</titelpre>";
