@@ -9,7 +9,7 @@
     xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0"
 >
     <xsl:output method="xml" version="1.0" indent="yes"/>
-    <xsl:template match="studienerfolge">
+    <xsl:template match="zertifikate">
         <office:document-content xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2">
             <office:scripts/>
             <office:font-face-decls>
@@ -99,11 +99,6 @@
                 </style:style>
                 <style:style style:name="Tabelle2.A11" style:family="table-cell">
                     <style:table-cell-properties fo:background-color="#cccccc" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000">
-                        <style:background-image/>
-                    </style:table-cell-properties>
-                </style:style>
-                <style:style style:name="Tabelle2.A12" style:family="table-cell">
-                    <style:table-cell-properties fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="0.05pt solid #000000" fo:border-bottom="0.05pt solid #000000">
                         <style:background-image/>
                     </style:table-cell-properties>
                 </style:style>
@@ -281,10 +276,6 @@
                 <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Table_20_Contents">
                     <style:text-properties style:font-name="Arial" fo:font-size="9pt" fo:font-weight="bold" officeooo:rsid="0010dfec" officeooo:paragraph-rsid="0010dfec" fo:background-color="transparent" style:font-size-asian="9pt" style:language-asian="de" style:country-asian="DE" style:font-weight-asian="bold" style:font-name-complex="Arial1" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
                 </style:style>
-                <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Table_20_Contents">
-                    <style:paragraph-properties fo:text-align="end" style:justify-single-word="false"/>
-                    <style:text-properties style:font-name="Arial" fo:font-size="9pt" fo:font-weight="bold" officeooo:rsid="0010dfec" officeooo:paragraph-rsid="0010dfec" fo:background-color="transparent" style:font-size-asian="9pt" style:language-asian="de" style:country-asian="DE" style:font-weight-asian="bold" style:font-name-complex="Arial1" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
-                </style:style>
                 <style:style style:name="T1" style:family="text">
                     <style:text-properties officeooo:rsid="0003921e"/>
                 </style:style>
@@ -318,78 +309,80 @@
                         <text:sequence-decl text:display-outline-level="0" text:name="Text"/>
                         <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
                     </text:sequence-decls>
-                    <text:p text:style-name="P17">Bestätigung des <text:span text:style-name="T5">Studienerfolges</text:span></text:p>
-                    
-                    <xsl:apply-templates select="studienerfolg"/>
-                    
+                    <text:p text:style-name="P17">Lehrveranstaltungszeugnis</text:p>
+                                        
+                    <xsl:apply-templates select="zertifikat"/>
+                
+                    <text:p text:style-name="P6"/>
+                    <text:p text:style-name="P5">
+                        <text:span text:style-name="T2">Beurteilung: Sehr gut (1), Gut (2), Befriedigend (3), Genügend (4), Nicht genügend (5), anerkannt (anerk), erfolgreich absolviert (ea)</text:span>
+                    </text:p>
                 </office:text>
             </office:body>
         </office:document-content>
     </xsl:template>
 
-    <xsl:template match="studienerfolg">
-        <xsl:if test="position() = 1">
-            <text:p text:style-name="P7">
-                <xsl:value-of select="finanzamt" />
-            </text:p>
-            <text:p text:style-name="P7"/>
-            <table:table table:name="Tabelle1" table:style-name="Tabelle1">
-                <table:table-column table:style-name="Tabelle1.A"/>
-                <table:table-column table:style-name="Tabelle1.B"/>
-                <table:table-column table:style-name="Tabelle1.C"/>
-                <table:table-row table:style-name="Tabelle1.1">
-                    <table:table-cell table:style-name="Tabelle1.A1" office:value-type="string">
-                        <text:p text:style-name="P9">Name</text:p>
-                        <text:p text:style-name="P15">
-                            <text:span text:style-name="T4">
-                                <xsl:value-of select="titelpre" />
-                                <xsl:text> </xsl:text>
-                                <xsl:value-of select="vorname" />
-                                <xsl:text> </xsl:text>
-                                <xsl:value-of select="nachname" />
-                                <xsl:if test="titelpost != ''">
-                                    <xsl:text>, </xsl:text>
-                                    <xsl:value-of select="titelpost" />
-                                </xsl:if>
-                            </text:span>
-                        </text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="Tabelle1.B1" office:value-type="string">
-                        <text:p text:style-name="P10">Geburtsdatum</text:p>
-                        <text:p text:style-name="P13">
-                            <xsl:value-of select="gebdatum" />
-                        </text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="Tabelle1.B1" office:value-type="string">
-                        <text:p text:style-name="P8">Matrikelnummer</text:p>
-                        <text:p text:style-name="P15">
-                            <xsl:value-of select="matrikelnr" />
-                        </text:p>
-                    </table:table-cell>
-                </table:table-row>
-                <table:table-row table:style-name="Tabelle1.2">
-                    <table:table-cell table:style-name="Tabelle1.A1" table:number-columns-spanned="2" office:value-type="string">
-                        <text:p text:style-name="P10">Studienrichtung und Studiengang</text:p>
-                        <text:p text:style-name="P15">
-                            <text:span text:style-name="T6">
-                                <xsl:value-of select="studiengang_typ " />
-                                <xsl:text> </xsl:text>
-                                <xsl:value-of select="studiengang" />
-                            </text:span>
-                        </text:p>
-                    </table:table-cell>
-                    <table:covered-table-cell/>
-                    <table:table-cell table:style-name="Tabelle1.B1" office:value-type="string">
-                        <text:p text:style-name="P10">
-                            <text:span text:style-name="T7">Studienkennzahl</text:span>
-                        </text:p>
-                        <text:p text:style-name="P14">
-                            <xsl:value-of select="studiengang_kz" />
-                        </text:p>
-                    </table:table-cell>
-                </table:table-row>
-            </table:table>
-        </xsl:if>
+    <xsl:template match="zertifikat">
+        <text:p text:style-name="P7">
+            <xsl:value-of select="finanzamt" />
+        </text:p>
+        <text:p text:style-name="P7"/>
+        <table:table table:name="Tabelle1" table:style-name="Tabelle1">
+            <table:table-column table:style-name="Tabelle1.A"/>
+            <table:table-column table:style-name="Tabelle1.B"/>
+            <table:table-column table:style-name="Tabelle1.C"/>
+            <table:table-row table:style-name="Tabelle1.1">
+                <table:table-cell table:style-name="Tabelle1.A1" office:value-type="string">
+                    <text:p text:style-name="P9">Name</text:p>
+                    <text:p text:style-name="P15">
+                        <text:span text:style-name="T4">
+                            <xsl:value-of select="titelpre" />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="vorname" />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="nachname" />
+                            <xsl:if test="titelpost != ''">
+                                <xsl:text>, </xsl:text>
+                                <xsl:value-of select="titelpost" />
+                            </xsl:if>
+                        </text:span>
+                    </text:p>
+                </table:table-cell>
+                <table:table-cell table:style-name="Tabelle1.B1" office:value-type="string">
+                    <text:p text:style-name="P10">Geburtsdatum</text:p>
+                    <text:p text:style-name="P13">
+                        <xsl:value-of select="gebdatum" />
+                    </text:p>
+                </table:table-cell>
+                <table:table-cell table:style-name="Tabelle1.B1" office:value-type="string">
+                    <text:p text:style-name="P8">Matrikelnummer</text:p>
+                    <text:p text:style-name="P15">
+                        <xsl:value-of select="matrikelnr" />
+                    </text:p>
+                </table:table-cell>
+            </table:table-row>
+            <table:table-row table:style-name="Tabelle1.2">
+                <table:table-cell table:style-name="Tabelle1.A1" table:number-columns-spanned="2" office:value-type="string">
+                    <text:p text:style-name="P10">Studienrichtung und Studiengang</text:p>
+                    <text:p text:style-name="P15">
+                        <text:span text:style-name="T6">
+                            <xsl:value-of select="lv_studiengang_typ " />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="lv_studiengang_bezeichnung" />
+                        </text:span>
+                    </text:p>
+                </table:table-cell>
+                <table:covered-table-cell/>
+                <table:table-cell table:style-name="Tabelle1.B1" office:value-type="string">
+                    <text:p text:style-name="P10">
+                        <text:span text:style-name="T7">Studienkennzahl</text:span>
+                    </text:p>
+                    <text:p text:style-name="P14">
+                        <xsl:value-of select="lv_studiengang_kennzahl" />
+                    </text:p>
+                </table:table-cell>
+            </table:table-row>
+        </table:table>
         
         <text:p text:style-name="P7"/>
         
@@ -401,13 +394,15 @@
             <table:table-column table:style-name="Tabelle2.D"/>
             <table:table-column table:style-name="Tabelle2.E"/>
             <table:table-column table:style-name="Tabelle2.F"/>
+            <!--
             <table:table-row>
-                <table:table-cell table:style-name="Tabelle2.A11" table:number-columns-spanned="7" office:value-type="string">
+                <table:table-cell table:style-name="Tabelle2.A11" table:number-columns-spanned="6" office:value-type="string">
                     <text:p text:style-name="P19">
                         <xsl:value-of select="studiensemester_kurzbz" />
                     </text:p>
                 </table:table-cell>
             </table:table-row>
+            -->
             <table:table-row>
                 <table:table-cell table:style-name="Tabelle2.A1" office:value-type="string">
                     <text:p text:style-name="P19">Sem.</text:p>
@@ -431,88 +426,62 @@
                     <text:p text:style-name="P19">ECTS</text:p>
                 </table:table-cell>
             </table:table-row>
-            <xsl:apply-templates select="unterrichtsfach"/>
             <table:table-row>
-                <table:table-cell table:style-name="Tabelle2.A12" table:number-columns-spanned="5" office:value-type="string">
-                    <text:p text:style-name="P20">Summe</text:p>
+                <table:table-cell table:style-name="Tabelle2.A2" office:value-type="string">
+                    <text:p text:style-name="P18">
+                        <xsl:value-of select="studplansem" />
+                    </text:p>
+                </table:table-cell>
+                <table:table-cell table:style-name="Tabelle2.B2" office:value-type="string">
+                    <text:p text:style-name="P18">
+                        <xsl:value-of select="bezeichnung" />
+                    </text:p>
+                </table:table-cell>
+                <table:table-cell table:style-name="Tabelle2.B2" office:value-type="string">
+                    <text:p text:style-name="P18">
+                        <!-- <xsl:value-of select="lehrform" /> -->VO
+                    </text:p>
+                </table:table-cell>
+                <table:table-cell table:style-name="Tabelle2.C2" office:value-type="string">
+                    <text:p text:style-name="P18">
+                        <xsl:value-of select="benotungsdatum" />
+                    </text:p>
+                </table:table-cell>
+                <table:table-cell table:style-name="Tabelle2.D2" office:value-type="string">
+                    <text:p text:style-name="P18">
+                        <xsl:value-of select="note" />
+                    </text:p>
                 </table:table-cell>
                 <table:table-cell table:style-name="Tabelle2.E2" office:value-type="string">
-                    <text:p text:style-name="P19">
-                        <xsl:value-of select="gesamtstunden" />
+                    <text:p text:style-name="P18">
+                        <xsl:value-of select="sws" />
                     </text:p>
                 </table:table-cell>
                 <table:table-cell table:style-name="Tabelle2.F2" office:value-type="string">
-                    <text:p text:style-name="P19">
-                        <xsl:value-of select="gesamtects" />
+                    <text:p text:style-name="P18">
+                        <xsl:value-of select="ects" />
                     </text:p>
                 </table:table-cell>
             </table:table-row>
         </table:table>
-        
-        <xsl:if test="position() = last()">
-            <text:p text:style-name="P4"/>
-            <text:p text:style-name="P4"/>
-            <table:table table:name="Tabelle4" table:style-name="Tabelle4">
-                <table:table-column table:style-name="Tabelle4.A"/>
-                <table:table-column table:style-name="Tabelle4.B"/>
-                <table:table-row table:style-name="Tabelle4.1">
-                    <table:table-cell table:style-name="Tabelle4.A1" office:value-type="string">
-                        <text:p text:style-name="P5">
-                            <text:span text:style-name="T2">Datum: </text:span>
-                            <text:span text:style-name="T3">
-                                <xsl:value-of select="datum" />
-                            </text:span>
-                        </text:p>
-                    </table:table-cell>
-                    <table:table-cell table:style-name="Tabelle4.A1" office:value-type="string">
-                        <text:p text:style-name="P12">Gilt auch ohne Unterschrift und Stempel</text:p>
-                    </table:table-cell>
-                </table:table-row>
-            </table:table>
-            <text:p text:style-name="P6"/>
-            <text:p text:style-name="P5">
-                <text:span text:style-name="T2">Beurteilung: Sehr gut (1), Gut (2), Befriedigend (3), Genügend (4), Nicht genügend (5), anerkannt (anerk), erfolgreich absolviert (ea)</text:span>
-            </text:p>
-        </xsl:if>
-    </xsl:template>        
-    
-    <xsl:template match="unterrichtsfach">
-        <table:table-row>
-            <table:table-cell table:style-name="Tabelle2.A2" office:value-type="string">
-                <text:p text:style-name="P18">
-                    <xsl:value-of select="studplansem" />
-                </text:p>
-            </table:table-cell>
-            <table:table-cell table:style-name="Tabelle2.B2" office:value-type="string">
-                <text:p text:style-name="P18">
-                    <xsl:value-of select="bezeichnung" />
-                </text:p>
-            </table:table-cell>
-            <table:table-cell table:style-name="Tabelle2.B2" office:value-type="string">
-                <text:p text:style-name="P18">
-                    <xsl:value-of select="lehrform" />
-                </text:p>
-            </table:table-cell>
-            <table:table-cell table:style-name="Tabelle2.C2" office:value-type="string">
-                <text:p text:style-name="P18">
-                    <xsl:value-of select="benotungsdatum" />
-                </text:p>
-            </table:table-cell>
-            <table:table-cell table:style-name="Tabelle2.D2" office:value-type="string">
-                <text:p text:style-name="P18">
-                    <xsl:value-of select="note" />
-                </text:p>
-            </table:table-cell>
-            <table:table-cell table:style-name="Tabelle2.E2" office:value-type="string">
-                <text:p text:style-name="P18">
-                    <xsl:value-of select="sws" />
-                </text:p>
-            </table:table-cell>
-            <table:table-cell table:style-name="Tabelle2.F2" office:value-type="string">
-                <text:p text:style-name="P18">
-                    <xsl:value-of select="ects" />
-                </text:p>
-            </table:table-cell>
-        </table:table-row>
+        <text:p text:style-name="P4"/>
+        <text:p text:style-name="P4"/>
+        <table:table table:name="Tabelle4" table:style-name="Tabelle4">
+            <table:table-column table:style-name="Tabelle4.A"/>
+            <table:table-column table:style-name="Tabelle4.B"/>
+            <table:table-row table:style-name="Tabelle4.1">
+                <table:table-cell table:style-name="Tabelle4.A1" office:value-type="string">
+                    <text:p text:style-name="P5">
+                        <text:span text:style-name="T2">Datum: </text:span>
+                        <text:span text:style-name="T3">
+                            <xsl:value-of select="datum" />
+                        </text:span>
+                    </text:p>
+                </table:table-cell>
+                <table:table-cell table:style-name="Tabelle4.A1" office:value-type="string">
+                    <text:p text:style-name="P12">Gilt auch ohne Unterschrift und Stempel</text:p>
+                </table:table-cell>
+            </table:table-row>
+        </table:table>
     </xsl:template>
 </xsl:stylesheet>
