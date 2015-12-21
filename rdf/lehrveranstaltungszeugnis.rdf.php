@@ -27,6 +27,7 @@ require_once('../../../include/note.class.php');
 require_once('../../../include/studiensemester.class.php');
 require_once('../../../include/studiengang.class.php');
 require_once('../../../include/mitarbeiter.class.php');
+require_once('../../../include/lehrveranstaltung.class.php');
 
 $datum = new datum();
 $db = new basis_db();
@@ -208,6 +209,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		
 		$obj = new zeugnisnote();
 		$obj->load($lehrveranstaltung_id, $uid_arr[$i], $studiensemester_kurzbz);
+        $lehrveranstaltung = new lehrveranstaltung($lehrveranstaltung_id);
 
 		if ($obj->note)
 		{
@@ -260,7 +262,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		$xml .= "				<note_bezeichnung>".$note_bezeichnung."</note_bezeichnung>";
 		$xml .= "				<sws>".($sws==0?'':number_format(sprintf('%.1F',$sws),1))."</sws>";
 		$xml .= "				<ects>".number_format($ects,1)."</ects>";
-        $xml .= "				<lehrform><![CDATA[".$obj->lv_lehrform_kurzbz."]]></lehrform>";
+        $xml .= "				<lehrform><![CDATA[".$lehrveranstaltung->lehrform_kurzbz."]]></lehrform>";
         if($obj->benotungsdatum!='')
 			$xml .= "				<benotungsdatum>".date('d.m.Y',$datum->mktime_fromtimestamp($obj->benotungsdatum))."</benotungsdatum>";
 		$xml .= "				<lvleiter>".$leiter_titel." ".$leiter_vorname." ".$leiter_nachname.($leiter_titelpost!=''?', '.$leiter_titelpost:'')."</lvleiter>";
