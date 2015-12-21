@@ -203,7 +203,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		$xml .= "\n		<matrikelnr>".$row->matrikelnr."</matrikelnr>";
 		$xml .= "\n		<studiengangsleiter>".$stgl."</studiengangsleiter>";
 		$datum_aktuell = date('d.m.Y');
-		$xml .= "\n		<ort_datum>Wien, am ".$datum_aktuell."</ort_datum>";
+		$xml .= "\n		<datum>".$datum_aktuell."</datum>";
 		
 		
 		$obj = new zeugnisnote();
