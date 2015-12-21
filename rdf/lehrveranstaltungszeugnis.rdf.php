@@ -260,6 +260,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		$xml .= "				<note_bezeichnung>".$note_bezeichnung."</note_bezeichnung>";
 		$xml .= "				<sws>".($sws==0?'':number_format(sprintf('%.1F',$sws),1))."</sws>";
 		$xml .= "				<ects>".number_format($ects,1)."</ects>";
+        $xml .= "				<lehrform><![CDATA[".$obj->lv_lehrform_kurzbz."]]></lehrform>";
         if($obj->benotungsdatum!='')
 			$xml .= "				<benotungsdatum>".date('d.m.Y',$datum->mktime_fromtimestamp($obj->benotungsdatum))."</benotungsdatum>";
 		$xml .= "				<lvleiter>".$leiter_titel." ".$leiter_vorname." ".$leiter_nachname.($leiter_titelpost!=''?', '.$leiter_titelpost:'')."</lvleiter>";
