@@ -252,7 +252,6 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
         }
 		
 		$xml .= "				<lv_studiengang_bezeichnung>".$stg->bezeichnung."</lv_studiengang_bezeichnung>";
-		$xml .= "				<lv_studiengang_typ>".$stg->typ."</lv_studiengang_typ>";
 		$xml .= "				<lv_studiengang_kennzahl>".sprintf('%04s',$lvstg)."</lv_studiengang_kennzahl>";
         $xml .= "               <lv_studiengang_typ>".$studTyp."</lv_studiengang_typ>";
 		$xml .= "				<bezeichnung><![CDATA[".$lvbezeichnung."]]></bezeichnung>";
