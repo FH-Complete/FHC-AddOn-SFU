@@ -278,7 +278,15 @@
                 <style:style style:name="P18" style:family="paragraph" style:parent-style-name="Table_20_Contents">
                     <style:text-properties style:font-name="Arial" fo:font-size="9pt" officeooo:rsid="00121e89" officeooo:paragraph-rsid="00121e89" style:font-size-asian="9pt" style:language-asian="de" style:country-asian="DE" style:font-name-complex="Arial1" style:font-size-complex="9pt"/>
                 </style:style>
+                <style:style style:name="P18.1" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+                    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
+                    <style:text-properties style:font-name="Arial" fo:font-size="9pt" officeooo:rsid="00121e89" officeooo:paragraph-rsid="00121e89" style:font-size-asian="9pt" style:language-asian="de" style:country-asian="DE" style:font-name-complex="Arial1" style:font-size-complex="9pt"/>
+                </style:style>
                 <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+                    <style:text-properties style:font-name="Arial" fo:font-size="9pt" fo:font-weight="bold" officeooo:rsid="0010dfec" officeooo:paragraph-rsid="0010dfec" fo:background-color="transparent" style:font-size-asian="9pt" style:language-asian="de" style:country-asian="DE" style:font-weight-asian="bold" style:font-name-complex="Arial1" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
+                </style:style>
+                 <style:style style:name="P19.1" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+                    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
                     <style:text-properties style:font-name="Arial" fo:font-size="9pt" fo:font-weight="bold" officeooo:rsid="0010dfec" officeooo:paragraph-rsid="0010dfec" fo:background-color="transparent" style:font-size-asian="9pt" style:language-asian="de" style:country-asian="DE" style:font-weight-asian="bold" style:font-name-complex="Arial1" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
                 </style:style>
                 <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Table_20_Contents">
@@ -410,7 +418,7 @@
             <text:p text:style-name="P9"/>
             <text:p text:style-name="P21">Die Leitung der Fakultät Psychotherapiewissenschaft hat über Ihr Ansuchen um Anerkennung von Studien nach Durchsicht der vorgelegten Unterlagen wie folgt entschieden:</text:p>
             <text:p text:style-name="P21"/>
-            <text:p text:style-name="P22">Die folgenden Lehrveranstaltungen des Bakkalaureats-Studiengangs können als absolviert gelten:</text:p>
+            <text:p text:style-name="P22">Die folgenden Lehrveranstaltungen des <xsl:value-of select="studiengang_typ" />-Studiengangs können als absolviert gelten:</text:p>
             <text:p text:style-name="P9"/>
         </xsl:if>
         
@@ -464,12 +472,12 @@
                     <text:p text:style-name="P20">Summe</text:p>
                 </table:table-cell>
                 <table:table-cell table:style-name="Tabelle2.E2" office:value-type="string">
-                    <text:p text:style-name="P19">
+                    <text:p text:style-name="P19.1">
                         <xsl:value-of select="gesamtstunden" />
                     </text:p>
                 </table:table-cell>
                 <table:table-cell table:style-name="Tabelle2.F2" office:value-type="string">
-                    <text:p text:style-name="P19">
+                    <text:p text:style-name="P19.1">
                         <xsl:value-of select="gesamtects" />
                     </text:p>
                 </table:table-cell>
@@ -517,7 +525,7 @@
                 </text:p>
             </table:table-cell>
             <table:table-cell table:style-name="Tabelle2.B2" office:value-type="string">
-                <text:p text:style-name="P18">
+                <text:p text:style-name="P18.1">
                     <xsl:value-of select="lehrform" />
                 </text:p>
             </table:table-cell>
@@ -529,17 +537,17 @@
             </table:table-cell>
             -->
             <table:table-cell table:style-name="Tabelle2.D2" office:value-type="string">
-                <text:p text:style-name="P18">
+                <text:p text:style-name="P18.1">
                     <xsl:value-of select="note" />
                 </text:p>
             </table:table-cell>
             <table:table-cell table:style-name="Tabelle2.E2" office:value-type="string">
-                <text:p text:style-name="P18">
+                <text:p text:style-name="P18.1">
                     <xsl:value-of select="sws" />
                 </text:p>
             </table:table-cell>
             <table:table-cell table:style-name="Tabelle2.F2" office:value-type="string">
-                <text:p text:style-name="P18">
+                <text:p text:style-name="P18.1">
                     <xsl:value-of select="ects" />
                 </text:p>
             </table:table-cell>

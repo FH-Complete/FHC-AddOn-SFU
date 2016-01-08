@@ -33,7 +33,7 @@ addon.push(
 		document.getElementById('student-treecol-matrikelnummer').hidden=true;
 		document.getElementById('student-treecol-matrnr').hidden=false;
         
-        // Menuepunkt hinzufuegen
+        // Menuepunkt "Zeugnisnote eintragen" hinzufuegen
 		extrasmenue = document.getElementById("menu-extras-popup");
 
 		var menuentry = document.createElement("menuitem");
@@ -42,6 +42,16 @@ addon.push(
 		menuentry.addEventListener("command",AddZeugnisnote, true);
 	
 		extrasmenue.appendChild(menuentry);
+        
+        // Menuepunkt "Anerkennungsverfahren" hinzufuegen
+		dokumentemenue = document.getElementById("menu-dokumente-popup");
+
+		var menuentry = document.createElement("menuitem");
+		menuentry.setAttribute("id","addons-sfu-anerkennungsverfahren");
+		menuentry.setAttribute("label","Anerkennungsverfahren");
+		menuentry.addEventListener("command",StudentCreateAnerkennungsverfahren, true);
+	
+		dokumentemenue.appendChild(menuentry);
 	},
 	selectMitarbeiter: function(person_id, mitarbeiter_uid)
 	{
@@ -73,4 +83,35 @@ function AddZeugnisnote()
 	var uid = tree.view.getCellText(tree.currentIndex,col);
     
     window.open('../addons/sfu/vilesci/zeugnisnote.php?uid='+uid);
+}
+
+function StudentCreateAnerkennungsverfahren(event)
+{
+	netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+
+	var tree = document.getElementById('student-tree');
+    if (tree.currentIndex == -1)
+    {
+        alert("Bitte wählen Sie einen Studenten aus.");
+        return false;
+    }
+        
+    var col = tree.columns ? tree.columns["student-treecol-uid"] : "student-treecol-uid";
+	var uid = tree.view.getCellText(tree.currentIndex,col);
+	
+	if (event.shiftKey) 
+	{
+	    var output='odt';
+	} 
+	else if (event.ctrlKey)
+	{
+		var output='doc';
+	}
+	else
+	{
+		var output='pdf';
+	}
+
+	//PDF erzeugen
+	window.open('../content/pdfExport.php?xml=anerkennung.rdf.php&xsl=Anerkennung&uid='+uid+'&output='+output,'Anerkennungsverfahren', 'height=200,width=350,left=0,top=0,hotkeys=0,resizable=yes,status=no,scrollbars=yes,toolbar=no,location=no,menubar=no,dependent=yes');
 }
