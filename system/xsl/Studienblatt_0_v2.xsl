@@ -356,7 +356,7 @@ xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn
                     </table:table-cell>
                     <table:covered-table-cell/>
                     <table:table-cell table:style-name="Tabelle2.A1" office:value-type="string">
-                        <text:p text:style-name="P10">Kennzahl</text:p>
+                        <text:p text:style-name="P10">Studienkennzahl</text:p>
                         <text:p text:style-name="P8"><xsl:value-of select="studiengang_kz"/></text:p>
                     </table:table-cell>
                 </table:table-row>
