@@ -246,8 +246,8 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 	}
 	else
 		$schnitt = 0;
-	$xml .= "		<gesamtstunden>".$gesamtstunden."</gesamtstunden>";
-	$xml .= "		<gesamtects>$gesamtects</gesamtects>";
+	$xml .= "		<gesamtstunden>".sprintf('%.1F',$gesamtstunden)."</gesamtstunden>";
+	$xml .= "		<gesamtects>".sprintf('%.2F',$gesamtects)."</gesamtects>";
 	$xml .= "		<schnitt>".sprintf('%.2f',$schnitt)."</schnitt>";
 	$xml .= "	</studienerfolg>";
 }

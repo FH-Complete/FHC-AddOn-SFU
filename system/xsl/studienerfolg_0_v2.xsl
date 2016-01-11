@@ -63,7 +63,7 @@
                     <style:table-column-properties style:column-width="12.753cm"/>
                 </style:style>
                 <style:style style:name="Tabelle4.1" style:family="table-row">
-                    <style:table-row-properties style:row-height="0.503cm" fo:keep-together="auto"/>
+                    <style:table-row-properties style:row-height="0.8cm" fo:keep-together="auto"/>
                 </style:style>
                 <style:style style:name="Tabelle4.A1" style:family="table-cell">
                     <style:table-cell-properties fo:padding-left="0.199cm" fo:padding-right="0.191cm" fo:padding-top="0cm" fo:padding-bottom="0cm" fo:border="0.5pt solid #00000a"/>
@@ -278,7 +278,15 @@
                 <style:style style:name="P18" style:family="paragraph" style:parent-style-name="Table_20_Contents">
                     <style:text-properties style:font-name="Arial" fo:font-size="9pt" officeooo:rsid="00121e89" officeooo:paragraph-rsid="00121e89" style:font-size-asian="9pt" style:language-asian="de" style:country-asian="DE" style:font-name-complex="Arial1" style:font-size-complex="9pt"/>
                 </style:style>
+                <style:style style:name="P18.1" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+                    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
+                    <style:text-properties style:font-name="Arial" fo:font-size="9pt" officeooo:rsid="00121e89" officeooo:paragraph-rsid="00121e89" style:font-size-asian="9pt" style:language-asian="de" style:country-asian="DE" style:font-name-complex="Arial1" style:font-size-complex="9pt"/>
+                </style:style>
                 <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+                    <style:text-properties style:font-name="Arial" fo:font-size="9pt" fo:font-weight="bold" officeooo:rsid="0010dfec" officeooo:paragraph-rsid="0010dfec" fo:background-color="transparent" style:font-size-asian="9pt" style:language-asian="de" style:country-asian="DE" style:font-weight-asian="bold" style:font-name-complex="Arial1" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
+                </style:style>
+                <style:style style:name="P19.1" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+                    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false"/>
                     <style:text-properties style:font-name="Arial" fo:font-size="9pt" fo:font-weight="bold" officeooo:rsid="0010dfec" officeooo:paragraph-rsid="0010dfec" fo:background-color="transparent" style:font-size-asian="9pt" style:language-asian="de" style:country-asian="DE" style:font-weight-asian="bold" style:font-name-complex="Arial1" style:font-size-complex="9pt" style:font-weight-complex="bold"/>
                 </style:style>
                 <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Table_20_Contents">
@@ -437,12 +445,12 @@
                     <text:p text:style-name="P20">Summe</text:p>
                 </table:table-cell>
                 <table:table-cell table:style-name="Tabelle2.E2" office:value-type="string">
-                    <text:p text:style-name="P19">
+                    <text:p text:style-name="P19.1">
                         <xsl:value-of select="gesamtstunden" />
                     </text:p>
                 </table:table-cell>
                 <table:table-cell table:style-name="Tabelle2.F2" office:value-type="string">
-                    <text:p text:style-name="P19">
+                    <text:p text:style-name="P19.1">
                         <xsl:value-of select="gesamtects" />
                     </text:p>
                 </table:table-cell>
@@ -465,6 +473,7 @@
                         </text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="Tabelle4.A1" office:value-type="string">
+                        <text:p text:style-name="P12">Vizerektor für Lehre: MMag. Dr. Stefan Hampl</text:p>
                         <text:p text:style-name="P12">Gilt auch ohne Unterschrift und Stempel</text:p>
                     </table:table-cell>
                 </table:table-row>
@@ -489,27 +498,27 @@
                 </text:p>
             </table:table-cell>
             <table:table-cell table:style-name="Tabelle2.B2" office:value-type="string">
-                <text:p text:style-name="P18">
+                <text:p text:style-name="P18.1">
                     <xsl:value-of select="lehrform" />
                 </text:p>
             </table:table-cell>
             <table:table-cell table:style-name="Tabelle2.C2" office:value-type="string">
-                <text:p text:style-name="P18">
+                <text:p text:style-name="P18.1">
                     <xsl:value-of select="benotungsdatum" />
                 </text:p>
             </table:table-cell>
             <table:table-cell table:style-name="Tabelle2.D2" office:value-type="string">
-                <text:p text:style-name="P18">
+                <text:p text:style-name="P18.1">
                     <xsl:value-of select="note" />
                 </text:p>
             </table:table-cell>
             <table:table-cell table:style-name="Tabelle2.E2" office:value-type="string">
-                <text:p text:style-name="P18">
+                <text:p text:style-name="P18.1">
                     <xsl:value-of select="sws" />
                 </text:p>
             </table:table-cell>
             <table:table-cell table:style-name="Tabelle2.F2" office:value-type="string">
-                <text:p text:style-name="P18">
+                <text:p text:style-name="P18.1">
                     <xsl:value-of select="ects" />
                 </text:p>
             </table:table-cell>
