@@ -199,13 +199,13 @@
                     <style:text-properties style:font-name="Helvetica" fo:font-size="8pt" officeooo:rsid="001357fe" officeooo:paragraph-rsid="00148b8c" style:font-size-asian="8pt" style:font-size-complex="8pt"/>
                 </style:style>
                 <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Standard">
-                    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false">
+                    <style:paragraph-properties fo:margin-top="0.4cm" fo:margin-bottom="0.4cm" fo:text-align="center" style:justify-single-word="false">
                         <style:tab-stops/>
                     </style:paragraph-properties>
                     <style:text-properties style:font-name="Helvetica" fo:font-size="7pt" officeooo:rsid="00094cd9" officeooo:paragraph-rsid="000a79ac" style:font-size-asian="7pt" style:font-size-complex="7pt"/>
                 </style:style>
                 <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Standard">
-                    <style:paragraph-properties fo:text-align="center" style:justify-single-word="false">
+                    <style:paragraph-properties fo:margin-top="0.4cm" fo:margin-bottom="0.4cm" fo:text-align="center" style:justify-single-word="false">
                         <style:tab-stops/>
                     </style:paragraph-properties>
                     <style:text-properties style:font-name="Helvetica" fo:font-size="7pt" officeooo:rsid="00094cd9" officeooo:paragraph-rsid="00148b8c" style:font-size-asian="7pt" style:font-size-complex="7pt"/>

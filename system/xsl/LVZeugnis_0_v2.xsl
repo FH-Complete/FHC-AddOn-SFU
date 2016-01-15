@@ -319,7 +319,7 @@
                 
                     <text:p text:style-name="P6"/>
                     <text:p text:style-name="P5">
-                        <text:span text:style-name="T2">Beurteilung: Sehr gut (1), Gut (2), Befriedigend (3), Genügend (4), Nicht genügend (5), anerkannt (anerk), erfolgreich absolviert (ea)</text:span>
+                        <text:span text:style-name="T2">Beurteilung: Sehr gut (1), Gut (2), Befriedigend (3), Genügend (4), Nicht genügend (5), anerkannt (anerk), erfolgreich absolviert (ea)<text:line-break/>1 SWS = 15 Unterrichtseinheiten (UE)<text:line-break/>ECTS = European Credit Transfer System</text:span>
                     </text:p>
                 </office:text>
             </office:body>
