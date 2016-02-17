@@ -37,7 +37,7 @@ ini_set('display_errors','1');
 error_reporting(E_ALL);
 
 $db = new basis_db();
-$sendActivationMail = true;
+$sendActivationMail = false;
 
 //LDAP Verbindung herstellen
 $ldap = new ldap();
