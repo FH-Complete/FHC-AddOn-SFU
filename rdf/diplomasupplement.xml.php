@@ -865,12 +865,15 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
                         </lv>';
                 }
 
+						if(!$student = new student($uid_arr[$i]))
+							die("Student nicht gefunden");
+
                 // Ist er Outgoing in diesem semester
                 $qry_outgoing = "SELECT studiensemester_kurzbz, ort, ects, semesterstunden, von, bis, universitaet, lehrveranstaltung_id
                     FROM bis.tbl_bisio
                     JOIN lehre.tbl_lehreinheit USING(lehreinheit_id)
                     JOIN lehre.tbl_lehrveranstaltung USING(lehrveranstaltung_id)
-                    WHERE student_uid = ".$db->db_add_param($uid_arr[$i]);
+                    WHERE prestudent_id = ".$db->db_add_param($student->prestudent_id);
 
                 if($result_outgoing = $db->db_query($qry_outgoing))
                 {
