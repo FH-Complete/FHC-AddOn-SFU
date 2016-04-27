@@ -291,8 +291,9 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 
 		}
 
+		$student = new student($uid_arr[$i]);
 		$akadgrad_id='';
-		$qry = "SELECT bezeichnung, akadgrad_id, bezeichnung_english FROM lehre.tbl_abschlusspruefung JOIN lehre.tbl_abschlussbeurteilung USING(abschlussbeurteilung_kurzbz) WHERE student_uid='".$uid_arr[$i]."' ORDER BY datum DESC LIMIT 1";
+		$qry = "SELECT bezeichnung, akadgrad_id, bezeichnung_english FROM lehre.tbl_abschlusspruefung JOIN lehre.tbl_abschlussbeurteilung USING(abschlussbeurteilung_kurzbz) WHERE prestudent_id=".$db->db_add_param($student->prestudent_id, FHC_INTEGER)." ORDER BY datum DESC LIMIT 1";
 		if($db->db_query($qry))
 		{
 			if($row1 = $db->db_fetch_object())
@@ -376,8 +377,9 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		echo "		<stgl>$stgl</stgl>";
 
         $abschlussbeurteilung='';
+				$student = new student($uid_arr[$i]);
         // Hole Datum der Sponsion -> wenn keine vorhanden nimm aktuelles datum
-        $qry = "SELECT sponsion, tbl_abschlussbeurteilung.bezeichnung_english,datum FROM lehre.tbl_abschlusspruefung JOIN lehre.tbl_abschlussbeurteilung USING(abschlussbeurteilung_kurzbz) WHERE student_uid='".$uid_arr[$i]."' ORDER BY datum DESC LIMIT 1";
+        $qry = "SELECT sponsion, tbl_abschlussbeurteilung.bezeichnung_english,datum FROM lehre.tbl_abschlusspruefung JOIN lehre.tbl_abschlussbeurteilung USING(abschlussbeurteilung_kurzbz) WHERE prestudent_id=".$db->db_add_param($student->prestudent_id, FHC_INTEGER)." ORDER BY datum DESC LIMIT 1";
         $sponsion_datum = date('d.m.Y');
         $abschlusspruefungsdatum = '';
         $abschlussbeurteilung='';
@@ -512,10 +514,10 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 			die("Student nicht gefunden");
 
 		//Projektarbeiten
-        $qry_projektarbeit = "SELECT lehrveranstaltung_id, titel, themenbereich, note, titel_english
+		$qry_projektarbeit = "SELECT lehrveranstaltung_id, titel, themenbereich, note, titel_english
 		FROM lehre.tbl_projektarbeit
 		JOIN lehre.tbl_lehreinheit USING(lehreinheit_id)
-		WHERE student_uid=".$db->db_add_param($student->prestudent_id)."
+		WHERE prestudent_id=".$db->db_add_param($student->prestudent_id, FHC_INTEGER)."
 		AND projekttyp_kurzbz in('Bachelor', 'Diplom')
 		ORDER BY beginn ASC, projektarbeit_id ASC;";
 
@@ -551,9 +553,9 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
             from lehre.tbl_zeugnisnote zeugnis
                 join lehre.tbl_note note using(note)
             join lehre.tbl_lehrveranstaltung USING(lehrveranstaltung_id)
-            join public.tbl_student student USING(student_uid)
+            join public.tbl_prestudent student USING(prestudent_id)
 		JOIN public.tbl_studiensemester USING(studiensemester_kurzbz)
-			where student_uid = ".$db->db_add_param($uid_arr[$i])." AND
+			where uid = ".$db->db_add_param($uid_arr[$i])." AND
             zeugnis = true
             ORDER BY tbl_studiensemester.start, tbl_studiensemester.studiensemester_kurzbz ASC";
 //		die($qry_semester);
@@ -588,7 +590,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 				$semester_kurzbz = 'Winter Semester '.$year.'/'.$helpyear;
 			}
 
-            $sqlStudent = new student();
+			$sqlStudent = new student($uid_arr[$i]);
 
 			echo "   <semesterKurzbz>$row_semkurzbz</semesterKurzbz>";
 
@@ -601,7 +603,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
             from lehre.tbl_zeugnisnote zeugnis
             join lehre.tbl_note note using(note)
             join lehre.tbl_lehrveranstaltung USING(lehrveranstaltung_id)
-			where student_uid = ".$db->db_add_param($uid_arr[$i])." AND zeugnis = true AND
+			where prestudent_id = ".$db->db_add_param($sqlStudent->prestudent_id, FHC_INTEGER)." AND zeugnis = true AND
 			studiensemester_kurzbz=".$db->db_add_param($row_semkurzbz)."
             ORDER BY sort, tbl_lehrveranstaltung.bezeichnung;";
 
@@ -740,12 +742,12 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 					}
                     $arrayLvAusbildungssemester[$row_stud->lehrveranstaltung_id]['lehrform_kurzbz']= $lehrform_kurzbz;
 //					echo "   <lehrform_kurzbz>$lehrform_kurzbz</lehrform_kurzbz>";
-
+					$student = new student($uid_arr[$i]);
 					//  hole benotungsdatum von aktueller LV
 					$qry_benotung = "SELECT benotungsdatum FROM
 					lehre.tbl_zeugnisnote WHERE lehrveranstaltung_id = ".$db->db_add_param($row_stud->lehrveranstaltung_id)."
 					AND studiensemester_kurzbz = ".$db->db_add_param($row_stud->studiensemester_kurzbz)."
-					AND student_uid = ".$db->db_add_param($uid_arr[$i]).";";
+					AND prestudent_id = ".$db->db_add_param($student->prestudent_id, FHC_INTEGER).";";
 					if($result_benotung = $db->db_query($qry_benotung))
 					{
 						if($row_benotung = $db->db_fetch_object($result_benotung))
@@ -761,6 +763,8 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 					$bezeichnung_englisch = $row_stud->bezeichnung_english;
 					$bezeichnung = $row_stud->bezeichnung;
 
+					$student = new student($uid_arr[$i]);
+
 					// Check ob Lehrveranstaltung ein Praktikum mit eingetragener Firma besitzt
 					$qry = "
 					SELECT
@@ -770,7 +774,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 					JOIN lehre.tbl_lehreinheit USING(lehreinheit_id)
 					JOIN public.tbl_firma USING(firma_id)
 					WHERE
-					student_uid=".$db->db_add_param($uid_arr[$i])."
+					prestudent_id=".$db->db_add_param($student->prestudent_id, FHC_INTEGER)."
 					AND projekttyp_kurzbz in('Praktikum', 'Praxis')
 					AND tbl_lehreinheit.lehrveranstaltung_id=".$db->db_add_param($row_stud->lehrveranstaltung_id)."
 					ORDER BY beginn ASC, projektarbeit_id ASC;";
@@ -790,7 +794,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 					$qry = "SELECT lehrveranstaltung_id, titel, themenbereich, note, titel_english
 					FROM lehre.tbl_projektarbeit
 					JOIN lehre.tbl_lehreinheit USING(lehreinheit_id)
-					WHERE student_uid=".$db->db_add_param($student->prestudent_id)."
+					WHERE prestudent_id=".$db->db_add_param($student->prestudent_id, FHC_INTEGER)."
 					AND projekttyp_kurzbz in('Bachelor', 'Diplom')
 					AND lehrveranstaltung_id=".$db->db_add_param($row_stud->lehrveranstaltung_id)."
 					ORDER BY beginn DESC, projektarbeit_id DESC LIMIT 1;";
@@ -885,12 +889,13 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
                             $note_outgoing = 'ar';
                             $benotungsdatum_outgoing = '';
                             $lehrform_kurzbz_outgoing = '';
+														$student = new student($uid_arr[$i]);
 
                             $qry_outgoing_note = "SELECT anmerkung, benotungsdatum, lehrform_kurzbz
                                 FROM lehre.tbl_zeugnisnote
                                 JOIN tbl_lehrveranstaltung using(lehrveranstaltung_id)
                                 JOIN tbl_note using(note)
-                                WHERE lehrveranstaltung_id = ".$db->db_add_param($row_outgoing->lehrveranstaltung_id)." and student_uid = ".$db->db_add_param($uid_arr[$i]);
+                                WHERE lehrveranstaltung_id = ".$db->db_add_param($row_outgoing->lehrveranstaltung_id)." and prestudent_id = ".$db->db_add_param($student->prestudent_id, FHC_INTEGER);
 
 
                             if($result_outgoing_note = $db->db_query($qry_outgoing_note))
