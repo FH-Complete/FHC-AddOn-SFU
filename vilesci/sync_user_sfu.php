@@ -1,6 +1,4 @@
 <?php
-if(php_sapi_name() != 'cli')
-    die('DISABLED');
 /* Copyright (C) 2014 fhcomplete.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,14 +15,20 @@ if(php_sapi_name() != 'cli')
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  *
- * Authors: Andreas Oesterreicher <andreas.oesterreicher@technikum-wien.at> 
- *          Nikolaus Krondraf <nikolaus.krondraf@technikum-wien.at>
+ * Authors: Andreas Oesterreicher <andreas.oesterreicher@technikum-wien.at>
+ *          Nikolaus Krondraf <nikolaus.krondraf@technikum-wien.at> and
+ *          Andreas Moik <moik@technikum-wien.at>.
  *
  */
+
+if(php_sapi_name() != 'cli')
+	die('DISABLED');
+
 /**
  * Script zum Anlegen der User im Samba4 und am Mailserver
- * Dieses Script muss als Root von der Commandline gestartet werden damit des Mailverzeichnis korrekt angelegt wird!
+ * Es muss als Root von der Commandline gestartet werden damit des Mailverzeichnis korrekt angelegt wird!
  */
+
 require_once('../../../config/vilesci.config.inc.php');
 require_once('../../../include/functions.inc.php');
 require_once('../../../include/basis_db.class.php');
@@ -45,23 +49,23 @@ $ldap->debug=false;
 if(!$ldap->connect())
 	die($ldap->errormsg);
 
-$qry = "SELECT  
-			vorname, nachname, uid, gebdatum, (SELECT matrikelnr FROM public.tbl_student WHERE student_uid=tbl_benutzer.uid) as matrikelnr, alias,
+$qry = "SELECT
+			vorname, nachname, uid, gebdatum, (SELECT perskz FROM public.tbl_prestudent WHERE tbl_prestudent.uid=tbl_benutzer.uid) as perskz, alias,
 			(SELECT lektor FROM public.tbl_mitarbeiter WHERE mitarbeiter_uid=tbl_benutzer.uid) as lektor,
 			(SELECT fixangestellt FROM public.tbl_mitarbeiter WHERE mitarbeiter_uid=tbl_benutzer.uid) as fixangestellt,
-			(SELECT true FROM public.tbl_student WHERE student_uid=tbl_benutzer.uid) as student,
+			(SELECT true FROM public.tbl_prestudent WHERE tbl_prestudent.uid=tbl_benutzer.uid) as student,
 			(SELECT kontakt FROM public.tbl_kontakt WHERE kontakttyp='email' AND person_id=tbl_benutzer.person_id ORDER BY zustellung desc LIMIT 1) as email_privat, aktivierungscode,
-			(SELECT bezeichnung FROM public.tbl_studiengang JOIN public.tbl_student USING(studiengang_kz) WHERE tbl_student.student_uid=tbl_benutzer.uid) as studiengang
+			(SELECT bezeichnung FROM public.tbl_studiengang JOIN public.tbl_prestudent USING(studiengang_kz) WHERE tbl_prestudent.uid=tbl_benutzer.uid) as studiengang
 		FROM
 			public.tbl_benutzer
 			JOIN public.tbl_person USING(person_id)
 		WHERE
 			tbl_benutzer.aktiv
 		AND uid NOT IN('administrator','_DummyLektor')
-        AND EXISTS (SELECT 1 FROM public.tbl_student JOIN public.tbl_prestudentstatus USING(prestudent_id) 
-                WHERE tbl_student.student_uid=tbl_benutzer.uid 
-                AND get_rolle_prestudent(prestudent_id,null) IN('Student','Incoming') 
-                AND tbl_prestudentstatus.studiensemester_kurzbz IN 
+        AND EXISTS (SELECT 1 FROM public.tbl_prestudent JOIN public.tbl_prestudentstatus USING(prestudent_id)
+                WHERE tbl_prestudent.uid=tbl_benutzer.uid
+                AND get_rolle_prestudent(prestudent_id,null) IN('Student','Incoming')
+                AND tbl_prestudentstatus.studiensemester_kurzbz IN
                     (SELECT studiensemester_kurzbz FROM public.tbl_studiensemester WHERE start>now()))
 		";
 
@@ -73,7 +77,7 @@ if($result = $db->db_query($qry))
 		if(!$dn = $ldap->GetUserDN($row->uid))
 		{
 			$data = array();
-            
+
             // freie UID-Nummer für den User ermitteln
             $lastUidNumber = file_get_contents("lastUidNumber.txt");
             $uidNumber = $lastUidNumber + 1;
@@ -83,8 +87,8 @@ if($result = $db->db_query($qry))
             }
             $data['uidNumber'] = $uidNumber;
             file_put_contents("lastUidNumber.txt", $uidNumber);
-            
-            if($row->matrikelnr=='')
+
+            if($row->perskz=='')
 			{
 				//Mitarbeiter
 				$dn = "CN=$row->uid,CN=Users,DC=uni,DC=sfu,DC=ac,DC=at";
@@ -101,7 +105,7 @@ if($result = $db->db_query($qry))
                 $data['gidNumber'] = '10001';
                 $data['unixHomeDirectory']='/var/spool/mail/'.$row->uid;
 			}
-			
+
 			//Active Directory will das Passwort in doppelten Hochkomma und UTF16LE codiert
 			$utf16_passwort = mb_convert_encoding('"'.ACCOUNT_ACTIVATION_PASSWORD.'"', "UTF-16LE", "UTF-8");
 
@@ -118,10 +122,10 @@ if($result = $db->db_query($qry))
 			$data['msSFU30Name']=$row->uid;
             $data['msSFU30NisDomain'] = 'uni';
             $data['uid'] = $row->uid;
-			
+
 			//Passwort und UserAccountControl kann nicht beim Anlegen direkt gesetzt werden
 			//Es muss nach dem Anlegen des Users gesetzt werden
-			
+
 			// UserAccountControl gibt den Status des Accounts an. Per default sind diese deaktiviert (514)
 			// 512 = Normal Account
 			// http://support.microsoft.com/kb/305144/en-us
@@ -148,10 +152,10 @@ if($result = $db->db_query($qry))
 				{
 					echo "<br>Fehler beim Setzten von UserAccountControl und Passwort von $row->uid: ".$ldap->errormsg;
 					continue;
-				}					
+				}
 
                 echo "<br>$row->uid erfolgreich angelegt";
-                
+
                 if($sendActivationMail)
                 {
                     // Aktivierungsmail verschicken
@@ -174,8 +178,8 @@ if($result = $db->db_query($qry))
                     else
                         echo " Fehler beim senden des Mails an $to";
                 }
-								
-                if($row->matrikelnr!='')
+
+                if($row->perskz!='')
                 {
                     // Verzeichnisse am Mailserver anlegen
                     exec('ssh mail.uni.sfu.ac.at /root/makemaildir.sh '.$row->uid);
