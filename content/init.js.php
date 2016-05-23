@@ -21,18 +21,18 @@
  * Initialisierung des Addons
  */
 ?>
-addon.push( 
+addon.push(
 {
-	init: function() 
+	init: function()
 	{
 		// Textfeld fuer Personenkennzeichen ausblenden
 		document.getElementById('student-detail-textbox-matrikelnummer').hidden=true;
 		document.getElementById('student-detail-label-matrikelnummer').hidden=true;
-		
+
 		// Matrikelnummer im Tree einblenden und Personenkennzeichen ausblenden
 		document.getElementById('student-treecol-matrikelnummer').hidden=true;
 		document.getElementById('student-treecol-matrnr').hidden=false;
-        
+
         // Menuepunkt "Zeugnisnote eintragen" hinzufuegen
 		extrasmenue = document.getElementById("menu-extras-popup");
 
@@ -40,9 +40,9 @@ addon.push(
 		menuentry.setAttribute("id","addons-sfu-zeugnisnote");
 		menuentry.setAttribute("label","Zeugnisnote eintragen");
 		menuentry.addEventListener("command",AddZeugnisnote, true);
-	
+
 		extrasmenue.appendChild(menuentry);
-        
+
         // Menuepunkt "Anerkennungsverfahren" hinzufuegen
 		dokumentemenue = document.getElementById("menu-dokumente-popup");
 
@@ -50,7 +50,7 @@ addon.push(
 		menuentry.setAttribute("id","addons-sfu-anerkennungsverfahren");
 		menuentry.setAttribute("label","Anerkennungsverfahren");
 		menuentry.addEventListener("command",StudentCreateAnerkennungsverfahren, true);
-	
+
 		dokumentemenue.appendChild(menuentry);
 	},
 	selectMitarbeiter: function(person_id, mitarbeiter_uid)
@@ -78,11 +78,11 @@ function AddZeugnisnote()
         alert("Bitte wählen Sie einen Studenten aus.");
         return false;
     }
-        
-    var col = tree.columns ? tree.columns["student-treecol-uid"] : "student-treecol-uid";
-	var uid = tree.view.getCellText(tree.currentIndex,col);
-    
-    window.open('../addons/sfu/vilesci/zeugnisnote.php?uid='+uid);
+
+    var col = tree.columns ? tree.columns["student-treecol-prestudent_id"] : "student-treecol-prestudent_id";
+	var prestudent_id = tree.view.getCellText(tree.currentIndex,col);
+
+    window.open('../addons/sfu/vilesci/zeugnisnote.php?prestudent_id='+prestudent_id);
 }
 
 function StudentCreateAnerkennungsverfahren(event)
@@ -90,19 +90,19 @@ function StudentCreateAnerkennungsverfahren(event)
 	netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
 
 	var tree = document.getElementById('student-tree');
-    if (tree.currentIndex == -1)
-    {
-        alert("Bitte wählen Sie einen Studenten aus.");
-        return false;
-    }
-        
-    var col = tree.columns ? tree.columns["student-treecol-uid"] : "student-treecol-uid";
-	var uid = tree.view.getCellText(tree.currentIndex,col);
-	
-	if (event.shiftKey) 
+	if (tree.currentIndex == -1)
 	{
-	    var output='odt';
-	} 
+		alert("Bitte wählen Sie einen Studenten aus.");
+		return false;
+	}
+
+	var col = tree.columns ? tree.columns["student-treecol-prestudent_id"] : "student-treecol-uid";
+	var uid = tree.view.getCellText(tree.currentIndex,col);
+
+	if (event.shiftKey)
+	{
+		var output='odt';
+	}
 	else if (event.ctrlKey)
 	{
 		var output='doc';

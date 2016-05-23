@@ -41,37 +41,36 @@ $rechte->getBerechtigungen($user);
 if(!$rechte->isBerechtigt('student/noten', null, 'suid'))
     die('Sie haben keine Berechtigung für diese Seite');
 
-if(!isset($_GET["uid"]))
-    die('Fehler: Studenten-UID muss übergeben werden');
+if(!isset($_GET["prestudent_id"]))
+	die('Fehler: prestudent_id muss übergeben werden');
 
 // Note speichern
-if(isset($_POST['new'])) 
+if(isset($_POST['new']))
 {
-    if (!$rechte->isBerechtigt('student/noten', null, 'suid'))
-        die('Sie haben keine Berechtigung für diese Seite');
-    $datum = new datum();
-    
-    $zeugnisnote = new zeugnisnote();
-    $zeugnisnote->new = true;
-    $zeugnisnote->lehrveranstaltung_id = $_POST["lehrveranstaltung_id"];
-    $zeugnisnote->student_uid = $_POST["student_uid"];
-    $zeugnisnote->studiensemester_kurzbz = $_POST["studiensemester_kurzbz"];
-    $zeugnisnote->note = $_POST["note"];
-    $zeugnisnote->benotungsdatum = $datum->formatDatum($_POST["benotungsdatum"]);
-    $zeugnisnote->insertvon = $user;
-    $zeugnisnote->insertamum = date('Y-m-d H:i:s', time());
-    $zeugnisnote->bemerkung = $_POST["lektor"];
-    if (!$zeugnisnote->save())
-        echo "<p style='color: red;'>Die Note konnte nicht gespeichert werden: " . $zeugnisnote->errormsg . "<p>";
-    else
-        echo "<p style='color: green;'>Note erfolgreich gespeichert</p>";
+	if (!$rechte->isBerechtigt('student/noten', null, 'suid'))
+		die('Sie haben keine Berechtigung für diese Seite');
+	$datum = new datum();
+
+	$zeugnisnote = new zeugnisnote();
+	$zeugnisnote->new = true;
+	$zeugnisnote->lehrveranstaltung_id = $_POST["lehrveranstaltung_id"];
+	$zeugnisnote->prestudent_id = $_POST["prestudent_id"];
+	$zeugnisnote->studiensemester_kurzbz = $_POST["studiensemester_kurzbz"];
+	$zeugnisnote->note = $_POST["note"];
+	$zeugnisnote->benotungsdatum = $datum->formatDatum($_POST["benotungsdatum"]);
+	$zeugnisnote->insertvon = $user;
+	$zeugnisnote->insertamum = date('Y-m-d H:i:s', time());
+	$zeugnisnote->bemerkung = $_POST["lektor"];
+	if (!$zeugnisnote->save())
+		echo "<p style='color: red;'>Die Note konnte nicht gespeichert werden: " . $zeugnisnote->errormsg . "<p>";
+	else
+		echo "<p style='color: green;'>Note erfolgreich gespeichert</p>";
 }
 
 // Student und Prestudent laden
-$student = new student($_GET["uid"]);
-$prestudent = new prestudent();
-$prestudent->getFirstStatus($student->prestudent_id, 'Student');
-$prestudent->getLastStatus($student->prestudent_id, 'Student');
+$prestudent = new prestudent($_GET["prestudent_id"]);
+$prestudent->getFirstStatus($prestudent->prestudent_id, 'Student');
+$prestudent->getLastStatus($prestudent->prestudent_id, 'Student');
 
 // Stammdaten der Noten und Studiensemester laden
 $noten = new note();
@@ -88,14 +87,14 @@ $lehrveranstaltung->loadLehrveranstaltungStudienplan($prestudent->studienplan_id
 $lehrveranstaltungen = array();
 foreach($lehrveranstaltung->lehrveranstaltungen as $lv)
 {
-    if($lv->lehrform_kurzbz != "MOD")
-        $lehrveranstaltungen[$lv->lehrveranstaltung_id] = $lv->bezeichnung . " (" . $lv->lehrform_kurzbz . ")";
+	if($lv->lehrform_kurzbz != "MOD")
+		$lehrveranstaltungen[$lv->lehrveranstaltung_id] = $lv->bezeichnung . " (" . $lv->lehrform_kurzbz . ")";
 }
 asort($lehrveranstaltungen);
 
 // Lektoren laden
 $mitarbeiter = new mitarbeiter();
-$lektoren = $mitarbeiter->getMitarbeiter(true, null, $student->studiengang_kz);
+$lektoren = $mitarbeiter->getMitarbeiter(true, null, $prestudent->studiengang_kz);
 
 ?>
 <!DOCTYPE html>
@@ -116,7 +115,7 @@ $lektoren = $mitarbeiter->getMitarbeiter(true, null, $student->studiengang_kz);
             })
         </script>
         <style>
-            label 
+            label
             {
                 width: 150px;
                 display: inline-block;
@@ -125,11 +124,11 @@ $lektoren = $mitarbeiter->getMitarbeiter(true, null, $student->studiengang_kz);
     </head>
     <body>
         <h2>Zeugnisnote eintragen</h2>
-        <form name="zeugnisnote" method="post" action="zeugnisnote.php?uid=<?php echo $student->uid ?>">
+        <form name="zeugnisnote" method="post" action="zeugnisnote.php?prestudent_id=<?php echo $prestudent->prestudent_id ?>">
             <p>
                 <label>Name:</label>
-                <?php echo $student->vorname . " " . $student->nachname; ?>
-                <input type="hidden" name="student_uid" value="<?php echo $student->uid ?>" id="uid"/>
+                <?php echo $prestudent->vorname . " " . $prestudent->nachname; ?>
+                <input type="hidden" name="prestudent_id" value="<?php echo $prestudent->prestudent_id ?>" id="pre_Id"/>
             </p>
             <p>
                 <label>Studienplan:</label>
@@ -179,12 +178,12 @@ $lektoren = $mitarbeiter->getMitarbeiter(true, null, $student->studiengang_kz);
                     $lektorBez = "";
                     if($lektor->titelpre != "")
                         $lektorBez .= $lektor->titelpre . " ";
-                    
+
                     $lektorBez .= $lektor->vorname . " " . $lektor->nachname;
-                    
+
                     if($lektor->titelpost != "")
                         $lektorBez .= ", " . $lektor->titelpost;
-                        
+
                     echo "<option value='" . $lektorBez . "'>" . $lektorBez . "</option>";
                 }
                 ?>
