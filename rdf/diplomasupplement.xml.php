@@ -291,7 +291,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 
 		}
 
-		$student = new student($uid_arr[$i]);
+		$student = new student($uid_arr[$i]);	// TODO EINE
 		$akadgrad_id='';
 		$qry = "SELECT bezeichnung, akadgrad_id, bezeichnung_english FROM lehre.tbl_abschlusspruefung JOIN lehre.tbl_abschlussbeurteilung USING(abschlussbeurteilung_kurzbz) WHERE prestudent_id=".$db->db_add_param($student->prestudent_id, FHC_INTEGER)." ORDER BY datum DESC LIMIT 1";
 		if($db->db_query($qry))

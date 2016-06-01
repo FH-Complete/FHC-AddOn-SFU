@@ -67,7 +67,7 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 	$studiensemester = new studiensemester();
 	$studiensemester_aktuell = $studiensemester->getNearest();
 	$student = new student();
-	$student->load($uid);
+	$student->load($uid);		// TODO EINE
 	$prestudentstatus = new prestudent();
 	$prestudentstatus->getLastStatus($student->prestudent_id,'','Student');
 
@@ -174,7 +174,7 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 
 	$obj = new zeugnisnote();
 
-	$student = new student($uid);
+	$student = new student($uid);// TODO EINE
 
 	if(!$obj->getZeugnisnoten($lehrveranstaltung_id=null, $student->prestudent_id, $studiensemester_kurzbz))
 		die('Fehler beim Laden der Noten:'.$obj->errormsg);
@@ -271,7 +271,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		$note_wert[$n->note] = $n->notenwert;
 	}
 
-	$student = new student($uid);
+	$student = new student($uid);// TODO EINE
 
 	//Daten holen
 	$xml = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>\n";

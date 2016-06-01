@@ -69,7 +69,7 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 	$studiensemester = new studiensemester();
 	$studiensemester_aktuell = $studiensemester->getNearest();
 	$student = new student();
-	$student->load($uid);
+	$student->load($uid);		// TODO EINE nicht eindeutig
 	$prestudentstatus = new prestudent();
 	$prestudentstatus->getLastStatus($student->prestudent_id,'','Student');
 
@@ -293,7 +293,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 	{
 		for ($i = 0; $i < sizeof($uid_arr); $i++)
 		{
-			$student = new student($uid_arr[$i]);
+			$student = new student($uid_arr[$i]);// TODO EINE
 
 			//Studienbestaetigung fuer alle Semester dieses Studenten
 			$qry = "SELECT * FROM public.tbl_studiensemester
