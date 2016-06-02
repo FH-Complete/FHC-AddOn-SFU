@@ -15,7 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  *
- * Authors: Nikolaus Krondraf <nikolaus.krondraf@technikum-wien.at>
+ * Authors: Nikolaus Krondraf <nikolaus.krondraf@technikum-wien.at> and
+ *          Andreas Moik <moik@technikum-wien.at>.
  */
 // content type setzen
 header("Content-type: application/xhtml+xml");
@@ -42,7 +43,7 @@ function breaktext($text, $zeichen)
 	$arr = explode(' ',$text);
 	$ret = '';
 	$teilstring='';
-	
+
 	foreach($arr as $elem)
 	{
 		if(strlen($teilstring.$elem)>$zeichen)
@@ -50,7 +51,7 @@ function breaktext($text, $zeichen)
 			$ret.=' '.$teilstring.'\n';
 			$teilstring=$elem;
 		}
-		else 
+		else
 			$teilstring .=' '.$elem;
 	}
 	$ret.=$teilstring;
@@ -59,12 +60,12 @@ function breaktext($text, $zeichen)
 
 if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 {
-
+	// TODO EINE param auf prestudent_id ändern?
 	if(isset($_GET['uid']))
 		$uid = $_GET['uid'];
-	else 
+	else
 		$uid = null;
-	
+
 	$uid_arr = explode(";",$uid);
 
 	if ($uid_arr[0] == "")
@@ -72,61 +73,61 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		unset($uid_arr[0]);
 		$uid_arr = array_values($uid_arr);
 	}
-	
+
 	$note_arr = array();
 	$note = new note();
 	$note->getAll();
 	foreach ($note->result as $n){
 		$note_arr[$n->note] = $n->anmerkung;
-		$note_bezeichnung_arr[$n->note] = $n->bezeichnung;	
-	
+		$note_bezeichnung_arr[$n->note] = $n->bezeichnung;
+
 	}
 	if(isset($_GET['ss']))
 		$studiensemester_kurzbz = $_GET['ss'];
-	else 
+	else
 		die('Studiensemester muss uebergeben werden');
 
 	if(isset($_GET['lvid']))
 		$lehrveranstaltung_id = $_GET['lvid'];
-	else 
+	else
 		$lehrveranstaltung_id = 0;
-	
+
 	//Daten holen
 
-	$lqry = "SELECT 
-				tbl_person.titelpre, tbl_person.vorname, tbl_person.nachname, tbl_person.titelpost 
-			FROM 
-				public.tbl_benutzer JOIN public.tbl_person using (person_id) 
-			WHERE 
-				tbl_benutzer.uid = (SELECT 
-										tbl_lehreinheitmitarbeiter.mitarbeiter_uid 
-									FROM 
-										lehre.tbl_lehreinheitmitarbeiter JOIN lehre.tbl_lehrfunktion USING(lehrfunktion_kurzbz), 
-										lehre.tbl_lehreinheit JOIN lehre.tbl_lehrveranstaltung USING(lehrveranstaltung_id) 
-									WHERE 
+	$lqry = "SELECT
+				tbl_person.titelpre, tbl_person.vorname, tbl_person.nachname, tbl_person.titelpost
+			FROM
+				public.tbl_benutzer JOIN public.tbl_person using (person_id)
+			WHERE
+				tbl_benutzer.uid = (SELECT
+										tbl_lehreinheitmitarbeiter.mitarbeiter_uid
+									FROM
+										lehre.tbl_lehreinheitmitarbeiter JOIN lehre.tbl_lehrfunktion USING(lehrfunktion_kurzbz),
+										lehre.tbl_lehreinheit JOIN lehre.tbl_lehrveranstaltung USING(lehrveranstaltung_id)
+									WHERE
 										tbl_lehreinheitmitarbeiter.lehreinheit_id = tbl_lehreinheit.lehreinheit_id AND
 										tbl_lehrveranstaltung.lehrveranstaltung_id = ".$db->db_add_param($lehrveranstaltung_id)." AND
 										tbl_lehreinheit.studiensemester_kurzbz=".$db->db_add_param($studiensemester_kurzbz)."
 									ORDER BY tbl_lehrfunktion.standardfaktor desc limit 1)";
-	
+
 	$leiter_titel = '';
 	$leiter_vorname = '';
 	$leiter_nachname = '';
 	$leiter_titelpost = '';
-	
+
 	if($db->db_query($lqry))
 	{
 		if ($lrow = $db->db_fetch_object())
 		{
-			$leiter_titel = $lrow->titelpre;			
+			$leiter_titel = $lrow->titelpre;
 			$leiter_vorname = $lrow->vorname;
-			$leiter_nachname = $lrow->nachname;	
-			$leiter_titelpost = $lrow->titelpost;	
-		}		
+			$leiter_nachname = $lrow->nachname;
+			$leiter_titelpost = $lrow->titelpost;
+		}
 	}
-		
-	$qry = "SELECT wochen FROM public.tbl_semesterwochen 
-						WHERE (studiengang_kz, semester) in (SELECT studiengang_kz, semester 
+
+	$qry = "SELECT wochen FROM public.tbl_semesterwochen
+						WHERE (studiengang_kz, semester) in (SELECT studiengang_kz, semester
 						FROM lehre.tbl_lehrveranstaltung WHERE lehrveranstaltung_id=".$db->db_add_param($lehrveranstaltung_id, FHC_INTEGER).")";
 	$wochen = 15;
 	if($result_wochen = $db->db_query($qry))
@@ -137,7 +138,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		}
 	}
 	$lvqry = "SELECT * from lehre.tbl_lehrveranstaltung where lehrveranstaltung_id = ".$db->db_add_param($lehrveranstaltung_id, FHC_INTEGER);
-	
+
 	if($db->db_query($lvqry))
 	{
 		if ($lvrow = $db->db_fetch_object())
@@ -145,37 +146,37 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 			$sws = $lvrow->semesterstunden/$wochen;
 			$ects = $lvrow->ects;
 			$lvbezeichnung = $lvrow->bezeichnung;
-			$lvstg = $lvrow->studiengang_kz;			
-		}		
+			$lvstg = $lvrow->studiengang_kz;
+		}
 	}
-	
+
 	$lehrinhalte = '';
 	$infoqry = "SELECT * FROM campus.tbl_lvinfo WHERE sprache='German' AND lehrveranstaltung_id = ".$db->db_add_param($lehrveranstaltung_id, FHC_INTEGER);
 	if($db->db_query($infoqry))
 	{
 		if ($inforow = $db->db_fetch_object())
 		{
-			$lehrinhalte_arr = explode("<br>",$inforow->lehrinhalte);			
+			$lehrinhalte_arr = explode("<br>",$inforow->lehrinhalte);
 			for ($i = 0; $i < sizeof($lehrinhalte_arr); $i++)
 			{
-				$lehrinhalte .= $lehrinhalte_arr[$i].'\n';			
+				$lehrinhalte .= $lehrinhalte_arr[$i].'\n';
 			}
-		}		
-	}	
-	
+		}
+	}
+
 	$xml = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>";
 	$xml .= "<zertifikate>";
-	
+
 	$studiensemester = new studiensemester();
 	$studiensemester->load($studiensemester_kurzbz);
-			
+
 	for ($i = 0; $i < sizeof($uid_arr); $i++)
-	{	
+	{
 		$anzahl_fussnoten=0;
 		$studiengang_typ='';
 		$xml_fussnote='';
-		
-		$query = "SELECT tbl_student.matrikelnr, tbl_student.studiengang_kz, tbl_studiengang.typ, tbl_studiengang.bezeichnung, tbl_person.vorname, tbl_person.nachname,tbl_person.gebdatum,tbl_person.titelpre, tbl_person.titelpost, tbl_person.geschlecht FROM tbl_person, tbl_student, tbl_studiengang, tbl_benutzer WHERE tbl_student.studiengang_kz = tbl_studiengang.studiengang_kz and tbl_student.student_uid = tbl_benutzer.uid and tbl_benutzer.person_id = tbl_person.person_id and tbl_student.student_uid = '".$uid_arr[$i]."'";
+
+		$query = "SELECT tbl_prestudent.perskz, tbl_prestudent.studiengang_kz, tbl_studiengang.typ, tbl_studiengang.bezeichnung, tbl_person.vorname, tbl_person.nachname,tbl_person.gebdatum,tbl_person.titelpre, tbl_person.titelpost, tbl_person.geschlecht FROM tbl_person, tbl_prestudent, tbl_studiengang, tbl_benutzer WHERE tbl_prestudent.studiengang_kz = tbl_studiengang.studiengang_kz and tbl_prestudent.uid = tbl_benutzer.uid and tbl_benutzer.person_id = tbl_person.person_id and tbl_prestudent.uid = '".$uid_arr[$i]."'";
 
 		if($db->db_query($query))
 		{
@@ -192,7 +193,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 			$stgl_ma = new mitarbeiter($stgleiter_uid);
 			$stgl .= trim($stgl_ma->titelpre.' '.$stgl_ma->vorname.' '.$stgl_ma->nachname.' '.$stgl_ma->titelpost);
 		}
-		
+
 		$xml .= "\n	<zertifikat>";
 		$xml .= "\n		<studiensemester>".$studiensemester->bezeichnung."</studiensemester>";
 		$xml .= "\n		<vorname>".$row->vorname."</vorname>";
@@ -205,8 +206,8 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		$xml .= "\n		<studiengangsleiter>".$stgl."</studiengangsleiter>";
 		$datum_aktuell = date('d.m.Y');
 		$xml .= "\n		<datum>".$datum_aktuell."</datum>";
-		
-		
+
+
 		$obj = new zeugnisnote();
 		$obj->load($lehrveranstaltung_id, $uid_arr[$i], $studiensemester_kurzbz);
         $lehrveranstaltung = new lehrveranstaltung($lehrveranstaltung_id);
@@ -220,39 +221,39 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		{
 			$note = "";
 			$note_bezeichnung = "";
-		}		
+		}
 		$note2=$note;
-        
+
         // Semester der LV laut Studienplan ermitteln
         $qry = "SELECT SUBSTRING(kurzbz FROM 1 FOR 2) AS studplansem FROM lehre.tbl_lehrveranstaltung WHERE lehrveranstaltung_id=".$db->db_add_param($lehrveranstaltung_id);
         if($db->db_query($qry))
             if($row_studplansem = $db->db_fetch_object())
                 $studplansem = $row_studplansem->studplansem;
-            
+
         $stg = new studiengang();
 		$stg->load($lvstg);
-            
+
         switch($stg->typ)
         {
             case 'b':
-                $studTyp = 'Bakkalaureat'; 
-                break; 
-            case 'm': 
-                $studTyp = 'Magister'; 
-                break; 
+                $studTyp = 'Bakkalaureat';
+                break;
+            case 'm':
+                $studTyp = 'Magister';
+                break;
             case 'd':
-                $studTyp = 'Diplom'; 
+                $studTyp = 'Diplom';
                 break;
             case 'l':
-                $studTyp = 'Lehrgang'; 
+                $studTyp = 'Lehrgang';
                 break;
             case 'k':
-                $studTyp = 'Kurzstudium'; 
+                $studTyp = 'Kurzstudium';
                 break;
-            default: 
+            default:
                 $studTyp ='';
         }
-		
+
 		$xml .= "				<lv_studiengang_bezeichnung>".$stg->bezeichnung."</lv_studiengang_bezeichnung>";
 		$xml .= "				<lv_studiengang_kennzahl>".sprintf('%04s',$lvstg)."</lv_studiengang_kennzahl>";
         $xml .= "               <lv_studiengang_typ>".$studTyp."</lv_studiengang_typ>";
@@ -268,7 +269,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 		$xml .= "				<lvleiter>".$leiter_titel." ".$leiter_vorname." ".$leiter_nachname.($leiter_titelpost!=''?', '.$leiter_titelpost:'')."</lvleiter>";
 		$xml .= "				<lehrinhalte><![CDATA[".clearHtmlTags($lehrinhalte)."]]></lehrinhalte>";
 
-		
+
 		$xml .= "	</zertifikat>";
 	}
 	$xml .= "</zertifikate>";
