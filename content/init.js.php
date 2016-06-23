@@ -15,7 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  *
- * Authors: Andreas Oesterreicher <andreas.oesterreicher@technikum-wien.at>
+ * Authors: Andreas Oesterreicher <andreas.oesterreicher@technikum-wien.at> and
+ *          Andreas Moik <moik@technikum-wien.at>.
  */
 /**
  * Initialisierung des Addons
@@ -96,8 +97,8 @@ function StudentCreateAnerkennungsverfahren(event)
 		return false;
 	}
 
-	var col = tree.columns ? tree.columns["student-treecol-prestudent_id"] : "student-treecol-uid";
-	var uid = tree.view.getCellText(tree.currentIndex,col);
+	var col = tree.columns ? tree.columns["student-treecol-prestudent_id"] : "student-treecol-prestudent_id";
+	var prestudent_id = tree.view.getCellText(tree.currentIndex,col);
 
 	if (event.shiftKey)
 	{
@@ -113,5 +114,5 @@ function StudentCreateAnerkennungsverfahren(event)
 	}
 
 	//PDF erzeugen
-	window.open('../content/pdfExport.php?xml=anerkennung.rdf.php&xsl=Anerkennung&uid='+uid+'&output='+output,'Anerkennungsverfahren', 'height=200,width=350,left=0,top=0,hotkeys=0,resizable=yes,status=no,scrollbars=yes,toolbar=no,location=no,menubar=no,dependent=yes');
+	window.open('../content/pdfExport.php?xml=anerkennung.rdf.php&xsl=Anerkennung&prestudent_id='+prestudent_id+'&output='+output,'Anerkennungsverfahren', 'height=200,width=350,left=0,top=0,hotkeys=0,resizable=yes,status=no,scrollbars=yes,toolbar=no,location=no,menubar=no,dependent=yes');
 }
