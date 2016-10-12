@@ -304,7 +304,7 @@
                         </text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="Tabelle1.A1" office:value-type="string">
-                        <text:p text:style-name="P16"><xsl:value-of select="matrikelnummer" /></text:p>
+                        <text:p text:style-name="P16"><xsl:value-of select="matr_nr" /></text:p>
                     </table:table-cell>
                 </table:table-row>
             </table:table>
@@ -374,7 +374,7 @@
                         </text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="Tabelle3.A1" office:value-type="string">
-                        <text:p text:style-name="P17"><xsl:value-of select="matrikelnummer" /></text:p>
+                        <text:p text:style-name="P17"><xsl:value-of select="matr_nr" /></text:p>
                     </table:table-cell>
                 </table:table-row>
             </table:table>
@@ -444,7 +444,7 @@
                         </text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="Tabelle5.A1" office:value-type="string">
-                        <text:p text:style-name="P17"><xsl:value-of select="matrikelnummer" /></text:p>
+                        <text:p text:style-name="P17"><xsl:value-of select="matr_nr" /></text:p>
                     </table:table-cell>
                 </table:table-row>
             </table:table>
@@ -514,7 +514,7 @@
                         </text:p>
                     </table:table-cell>
                     <table:table-cell table:style-name="Tabelle7.A1" office:value-type="string">
-                        <text:p text:style-name="P17"><xsl:value-of select="matrikelnummer" /></text:p>
+                        <text:p text:style-name="P17"><xsl:value-of select="matr_nr" /></text:p>
                     </table:table-cell>
                 </table:table-row>
             </table:table>
