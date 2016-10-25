@@ -5,10 +5,6 @@ require_once('../../../include/functions.inc.php');
 include('./httpful.phar');
 
 $user = get_uid();
-if (check_student($user))
-	$role = 'S';
-else
-	$role = 'M';
 
 
 if ( isset($user) && $user != "" )
@@ -19,7 +15,7 @@ if ( isset($user) && $user != "" )
 	//$MANZHost = 'cas.manz.at';
 
 
-	$uri = "https://cas.manz.at/bulk/tokenrequest?username=".$user."&ou=sfujus&role=".$role;
+	$uri = "https://cas.manz.at/bulk/tokenrequest?username=".$user."&ou=sfujus&role=M";
 	$token = \Httpful\Request::get($uri)->send();
 
 	//$token = $client->getContent();
