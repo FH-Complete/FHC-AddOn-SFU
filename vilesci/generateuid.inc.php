@@ -27,8 +27,8 @@
 function generateUID($stgkzl,$jahr, $stgtyp, $matrikelnummer)
 {
 	$db = new basis_db();
-        $uid = 'sfu'.date('Y');
-        $qry="SELECT substring(uid,8) as lastid FROM public.tbl_benutzer WHERE uid like '".$db->db_escape($uid)."%' ORDER BY 1 desc LIMIT 1";
+        $uid = 'sfuwi'.date('y').'04';
+        $qry="SELECT substring(uid,10) as lastid FROM public.tbl_benutzer WHERE uid like '".$db->db_escape($uid)."%' ORDER BY 1 desc LIMIT 1";
         $lastid=0;
         if($result = $db->db_query($qry))
         {
@@ -53,7 +53,7 @@ function generateMitarbeiterUID($vorname, $nachname, $lektor)
 {
 	$bn = new benutzer();
 	$uid='';
-	
+
     // Nachname wird so lange verkuerzt bis eine eindeutige UID entsteht die noch nicht vergeben ist
     for($nn=mb_strlen($nachname);$nn!=0;$nn--)
     {
