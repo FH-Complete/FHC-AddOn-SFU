@@ -27,10 +27,10 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="../../../skin/fhcomplete.css" type="text/css">
 	<link rel="stylesheet" href="../../../skin/vilesci.css" type="text/css">
-	<title>Semesterverlängerung und Attribut Kleriker</title>
+	<title>Addon SFU</title>
 </head>
 <body>
-<h1>Template</h1>';
+<h1>Funktionen</h1>';
 
 $uid = get_uid();
 $rechte = new benutzerberechtigung();
@@ -40,5 +40,5 @@ if(!$rechte->isBerechtigt('basis/addon'))
 {
 	die('Sie haben keine Berechtigung fuer diese Seite');
 }
-echo '<a href="../dbcheck.php">Update Datenkbank</a>';
+echo '<a href="reset_password.php">Reset Passwords</a>';
 ?>
