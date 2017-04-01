@@ -1475,7 +1475,7 @@ xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn
     <style:master-page style:name="Standard" style:page-layout-name="Mpm1">
       <style:header>
         <text:p text:style-name="MP1">
-          <draw:frame draw:style-name="Mfr1" draw:name="Bild1" text:anchor-type="paragraph" svg:x="5.038cm" svg:y="-0.305cm" svg:width="6.251cm" svg:height="1.363cm" draw:z-index="6">
+          <draw:frame draw:style-name="Mfr1" draw:name="Bild1" text:anchor-type="paragraph" svg:x="10.6cm" svg:y="-0.305cm" svg:width="6.251cm" svg:height="1.363cm" draw:z-index="6">
             <draw:image xlink:href="Pictures/100000000000099F000002199F3507DB.jpg" xlink:type="simple" xlink:show="embed" xlink:actuate="onLoad"/>
           </draw:frame>
         </text:p>
