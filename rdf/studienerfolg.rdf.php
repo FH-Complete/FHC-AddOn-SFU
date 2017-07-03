@@ -125,11 +125,7 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
     switch($studiengang->typ)
     {
         case 'b':
-<<<<<<< HEAD
             $studTyp = 'Bachelor'; 
-=======
-            $studTyp = 'Bakkalaureat';
->>>>>>> 386ba0788465cdb50ad7dfcf677452926bbf8f26
             break;
         case 'm':
             $studTyp = 'Magister';
