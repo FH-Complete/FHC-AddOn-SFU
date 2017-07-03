@@ -46,7 +46,7 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 				tbl_person.vorname, tbl_person.nachname,tbl_person.gebdatum,
 				tbl_studiensemester.bezeichnung as sembezeichnung,
 				tbl_studiengang.english as bezeichnung_englisch,
-				tbl_studiengang.orgform_kurzbz
+				tbl_studiengang.orgform_kurzbz, tbl_person.matr_nr
 			FROM
 				public.tbl_person, public.tbl_student, public.tbl_studiengang, public.tbl_benutzer,
 				public.tbl_studiensemester, lehre.tbl_zeugnisnote
@@ -125,7 +125,11 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
     switch($studiengang->typ)
     {
         case 'b':
+<<<<<<< HEAD
             $studTyp = 'Bachelor'; 
+=======
+            $studTyp = 'Bakkalaureat';
+>>>>>>> 386ba0788465cdb50ad7dfcf677452926bbf8f26
             break;
         case 'm':
             $studTyp = 'Magister';
@@ -162,6 +166,7 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 	$gebdatum = date('d.m.Y',strtotime($row->gebdatum));
 	$xml .= "		<gebdatum>".$gebdatum."</gebdatum>";
 	$xml .= "		<matrikelnr>".$row->matrikelnr."</matrikelnr>";
+	$xml .= "		<matr_nr>".$row->matr_nr."</matr_nr>";
 	$xml .= "		<studiensemester_kurzbz>".(($stdsem->beschreibung != NULL) ? $stdsem->beschreibung : $studiensemester_kurzbz)."</studiensemester_kurzbz>";
 	$datum_aktuell = date('d.m.Y');
 	$xml .= "		<datum>".$datum_aktuell."</datum>";
