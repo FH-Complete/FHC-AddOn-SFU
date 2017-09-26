@@ -48,8 +48,14 @@ if(php_sapi_name() != 'cli')
 $stg = new studiengang();
 if($stg->getAll())
 {
+
+
 	foreach($stg->result as $row_stg)
 	{
+		// NOTE: temporär nur stg_kz 301 BJUS erzeugen
+		if ($row_stg->studiengang_kz == 301)
+		{
+		// tmp ende
 		$stg_kz = $row_stg->studiengang_kz;
 		$stg_kzbz = $row_stg->kuerzel;
 		$gruppen = array();
@@ -91,7 +97,12 @@ if($stg->getAll())
 			if(count($teilnehmer)>0)
 				echo $name.': '.implode(',',$teilnehmer)."\n";
 		}
+		// NOTE: temporär nur stg_kz 301 BJUS erzeugen
+		}
+		// tmp ende
 	}
+
+
 }
 else
 {
