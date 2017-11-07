@@ -173,7 +173,7 @@ function draw_studienerfolg($uid, $studiensemester_kurzbz)
 
 	$obj = new zeugnisnote();
 
-	if(!$obj->getZeugnisnoten($lehrveranstaltung_id=null, $uid, $studiensemester_kurzbz))
+	if(!$obj->getZeugnisnoten($lehrveranstaltung_id=null, $uid, $studiensemester_kurzbz=null))
 		die('Fehler beim Laden der Noten:'.$obj->errormsg);
 
 
@@ -272,6 +272,7 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
 	$xml = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>\n";
 	$xml .= "<studienerfolge>";
 
+/*
 	//Studienbestaetigung fuer alle Semester dieses Studenten
     $qry = "SELECT * FROM public.tbl_studiensemester
             WHERE studiensemester_kurzbz in(
@@ -281,7 +282,9 @@ if (isset($_REQUEST["xmlformat"]) && $_REQUEST["xmlformat"] == "xml")
     if($db->db_query($qry))
         while($row = $db->db_fetch_object())
             draw_studienerfolg($uid, $row->studiensemester_kurzbz);
-
+*/
+// TEMP: Only 2017 dafür alle
+draw_studienerfolg($uid, 'WS2017');
 	$xml .= "</studienerfolge>";
 	echo $xml;
 }
